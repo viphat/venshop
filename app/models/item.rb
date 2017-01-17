@@ -5,7 +5,11 @@ class Item < ApplicationRecord
 
   belongs_to :category
 
-  has_attached_file :item_image, styles: { small: "51x32>", medium: "71x38>", large: "500x330>" }
+  validates :item_name, presence: true, length: { minimum: 10, maximum: 255 }
+  validates :category, presence: true
+  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
+
+  has_attached_file :item_image, styles: { small: "51x32>", medium: "71x38>", large: "110x86>" }
   validates_attachment_content_type :item_image, content_type: /\Aimage\/.*\z/
 
   def set_item_image_from_url(url)
