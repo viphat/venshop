@@ -47,9 +47,13 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-kaminari-views (0.0.5)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
     byebug (9.0.6)
     cells (4.1.5)
@@ -219,7 +223,9 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bootstrap-kaminari-views
   bootstrap-sass (~> 3.3.7)
+  breadcrumbs_on_rails
   byebug
   cells-erb
   cells-rails

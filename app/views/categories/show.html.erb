@@ -1,0 +1,9 @@
+<div class="row col-md-12 category-page">
+  <h2 class="bg-primary heading-title"><%= @category.category_name %></h2>
+  <% @items.each do |item| %>
+    <%= render partial: "shared/horizontal_item", locals: { item: item } %>
+  <% end %>
+  <div class="clearfix text-center">
+    <%= paginate @items, theme: "twitter-bootstrap-3"%>
+  </div>
+</div>
