@@ -7,11 +7,7 @@
     <div class="container">
       <%= render 'layouts/messages' %>
       <div class="row">
-        <%= render_breadcrumbs %>
-      </div>
-      <div class="row">
-        <div class="col-md-3 hidden-xs"><%= CategoriesCell.() %></div>
-        <div class="col-md-9 col-sm-12 col-xs-12"><%= yield %></div>
+        <div class="col-md-offset-3 col-md-6 col-xs-12"><%= yield %></div>
       </div>
     </div>
   </body>
