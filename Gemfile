@@ -35,14 +35,17 @@ gem 'jbuilder', '~> 2.5'
 # Use MySQL
 gem 'mysql2'
 
-# Use Bootstrap
+# Use Twitter's Bootstrap
 gem 'bootstrap-sass', '~> 3.3.7'
 
-# Use to load Enviroment (Global) Variables from yml
+# Load Enviroment (Global) Variables from yml
 gem 'figaro'
 
-# Use to load Items from Amazon Product Advertising API
+# Load Items from Amazon Product Advertising API
 gem 'vacuum'
+
+# File attachment library for ActiveRecord
+gem "paperclip", "~> 5.0.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
