@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
 
   belongs_to :category
+  delegate :category_name, to: :category
 
   validates :item_name, presence: true, length: { minimum: 10, maximum: 255 }
   validates :category, presence: true
