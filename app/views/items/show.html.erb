@@ -1,4 +1,4 @@
-<div class="row col-md-12 item-page">
+<div class="item-page">
   <h2 class="text-danger"><%= @item.item_name %></h2>
   <div class="col-md-3 col-xs-12">
     <%= image_tag(@item.item_image.url(:large), height: "86", width: "110", alt: "#{@item.item_name}") %>
@@ -19,8 +19,10 @@
   <div class="clearfix"></div>
   <hr/>
   <div class="col-md-12 col-xs-12 item-description">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel viverra orci, eget auctor urna. In lobortis lectus at cursus dignissim. Vestibulum eget justo nisi. Ut accumsan luctus neque, sit amet consectetur est malesuada eget. Sed viverra euismod ipsum, a imperdiet arcu mollis a. Etiam dictum est at eros luctus tempor. Sed dignissim lorem risus, sit amet congue urna tincidunt sed. Nullam tellus sem, posuere pulvinar auctor quis, feugiat non ex. Curabitur non risus justo. Aliquam bibendum molestie consectetur. Curabitur dapibus orci sit amet sollicitudin posuere.
-    </p>
+    <% if @item.description.present? %>
+      <p><%= @item.description %></p>
+    <% else %>
+      <p>This Item don't have description.</p>
+    <% end %>
   </div>
 </div>

@@ -1,9 +1,13 @@
-<div class="row col-md-12 category-page">
+<div class="category-page">
   <h2 class="bg-primary heading-title"><%= @category.category_name %></h2>
-  <% @items.each do |item| %>
-    <%= render partial: "shared/horizontal_item", locals: { item: item } %>
+  <% if @items.length == 0 %>
+    <%= render partial: "shared/empty", locals: { message: "#{@category.category_name} hasn't any items." } %>
+  <% else %>
+    <% @items.each do |item| %>
+      <%= render partial: "shared/horizontal_item", locals: { item: item } %>
+    <% end %>
+    <div class="clearfix text-center">
+      <%= paginate @items, theme: "twitter-bootstrap-3"%>
+    </div>
   <% end %>
-  <div class="clearfix text-center">
-    <%= paginate @items, theme: "twitter-bootstrap-3"%>
-  </div>
 </div>
