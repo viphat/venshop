@@ -1,11 +1,11 @@
-<div class="row col-md-12 items-list row-eq-height">
-  <div class="col-md-2 text-center item">
-    <%= image_tag(item.item_image, height: "32", width: "51", alt: "#{item.item_name}") %>
+<div class="row col-md-12 horizontal-item">
+  <div class="col-md-2 text-center">
+    <%= image_tag(item.item_image.url(:small), height: "32", width: "51", alt: "#{item.item_name}") %>
   </div>
-  <div class="col-md-8 item">
+  <div class="col-md-8">
     <%= link_to(item.item_name, item_path(item)) %>
   </div>
-  <div class="col-md-2 text-center item">
+  <div class="col-md-2 text-center">
     <%= "Price: #{item.price}" %>
   </div>
 </div>
