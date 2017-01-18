@@ -1,8 +1,6 @@
 <h2 class="bg-primary heading-title">Newest Items</h2>
 <% if @items.length == 0 %>
-  <%= render partial: "shared/empty", locals: { message: "We don't have any items." } %>
+  <%= render partial: 'shared/empty', locals: { message: 'We don\'t have any items.' } %>
 <% else %>
-  <% @items.each do |item| %>
-    <%= render partial: "shared/horizontal_item", locals: { item: item } %>
-  <% end %>
+  <%= render partial: 'shared/horizontal_item', collection: @items, as: :item %>
 <% end %>

@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  add_breadcrumb "Home", :root_path
+  add_breadcrumb 'Home', :root_path
 end
