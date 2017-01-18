@@ -1,3 +1,7 @@
+footer {
+  margin-top: 25px;
+}
+
 h2.heading-title {
   border: solid 1px;
   padding: 10px;
@@ -15,7 +19,7 @@ h2.heading-title {
   margin-right: 5px;
 }
 
-.login-panel, .register-panel, .profile-panel {
+.login-panel, .register-panel, .profile-panel, .item-panel {
   .panel-link {
     float: right;
     position: relative;

@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     put 'users/:id/profile' => 'users/profile#update', as: :update_user_profile
   end
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :new, :edit, :create, :update]
   resources :categories, only: [:show]
-
 end
