@@ -153,6 +153,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-byebug (3.4.2)
+      byebug (~> 9.0)
+      pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     puma (3.6.2)
@@ -247,7 +250,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.7)
   breadcrumbs_on_rails
   bullet
-  byebug
   cells-erb
   cells-rails
   coffee-rails (~> 4.2)
@@ -260,6 +262,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mysql2
   paperclip (~> 5.0.0)
+  pry-byebug
   pry-rails
   puma (~> 3.0)
   pundit
