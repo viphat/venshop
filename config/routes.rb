@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root to: 'items#index'
-  devise_for :users, skip: [:registrations, :sessions, :passwords]
+
+  devise_for :users, skip: [:registrations, :sessions, :passwords], :controllers => {
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
 
   as :user do
     get 'users/register' => 'users/registrations#new', as: :new_user_registration

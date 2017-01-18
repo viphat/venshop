@@ -61,6 +61,7 @@ gem "breadcrumbs_on_rails"
 
 # Authentication
 gem 'devise'
+gem 'omniauth-facebook'
 
 # Authorization
 gem 'pundit'
