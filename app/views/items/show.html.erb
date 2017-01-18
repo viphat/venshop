@@ -1,7 +1,7 @@
 <div class="item-page">
   <h2 class="text-danger"><%= @item.item_name %></h2>
   <div class="col-md-3 col-xs-12">
-    <%= image_tag(@item.item_image.url(:large), height: "86", width: "110", alt: "#{@item.item_name}") %>
+    <%= image_tag(@item.item_image.url(:large), height: '86', width: '110', alt: @item.item_name) %>
   </div>
   <div class="col-md-9 col-xs-12">
     <p>
@@ -12,7 +12,7 @@
         <label>Price:</label><%= @item.price %>
       </span>
       <span class="display-block">
-        <label>Date Added:</label><%= @item.created_at.strftime("%m/%d/%Y") %>
+        <label>Date Added:</label><%= @item.created_at.strftime('%m/%d/%Y') %>
       </span>
     </p>
   </div>

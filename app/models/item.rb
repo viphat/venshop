@@ -3,6 +3,8 @@ require 'open-uri'
 class Item < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
 
+  NEWEST_ITEMS_LIMIT=4
+
   belongs_to :category
   delegate :category_name, to: :category
 
