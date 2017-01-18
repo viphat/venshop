@@ -1,0 +1,28 @@
+<div class="item-page">
+  <h2 class="text-danger"><%= @item.item_name %></h2>
+  <div class="col-md-3 col-xs-12">
+    <%= image_tag(@item.item_image.url(:large), height: '86', width: '110', alt: @item.item_name) %>
+  </div>
+  <div class="col-md-9 col-xs-12">
+    <p>
+      <span class="display-block">
+        <label>Item ID:</label><%= @item.id %>
+      </span>
+      <span class="display-block">
+        <label>Price:</label><%= @item.price %>
+      </span>
+      <span class="display-block">
+        <label>Date Added:</label><%= @item.created_at.strftime('%m/%d/%Y') %>
+      </span>
+    </p>
+  </div>
+  <div class="clearfix"></div>
+  <hr/>
+  <div class="col-md-12 col-xs-12 item-description">
+    <% if @item.description? %>
+      <p><%= @item.description %></p>
+    <% else %>
+      <p>This Item don't have description.</p>
+    <% end %>
+  </div>
+</div>

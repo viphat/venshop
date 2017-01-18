@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Venshop</title>
+    <title>Project VenShop</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'layouts/header' %>
+    <div class="container">
+      <div class="row">
+        <%= render_breadcrumbs %>
+      </div>
+      <div class="row">
+        <div class="col-md-3 hidden-xs"><%= CategoriesCell.() %></div>
+        <div class="col-md-9 col-sm-12 col-xs-12"><%= yield %></div>
+      </div>
+    </div>
   </body>
 </html>

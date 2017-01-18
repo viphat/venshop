@@ -1,0 +1,24 @@
+// Place all the styles related to the Items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.horizontal-item {
+  margin: 10px 0px;
+  display: table;
+  table-layout: fixed;
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+  }
+}
+
+.item-page {
+  h2 { font-size: 18px; font-weight: 600px; }
+  label { margin-right: 10px; }
+  hr { border-top: 2px solid #336699; }
+  .item-description {
+    padding: 15px;
+    border: 1px solid #336699;
+  }
+}

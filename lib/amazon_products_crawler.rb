@@ -19,8 +19,6 @@ class AmazonProductsCrawler
     end
   end
 
-
-
   private
 
     def create_categories
