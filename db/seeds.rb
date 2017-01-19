@@ -7,3 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!(name: 'Administrator', email: 'admin@zigexn.vn', password: 'admin')
+
+# Assuming that We've already imported Items from Amazon
+# Import Items
+Item.all.each do |item|
+  item.inventory_items.create(
+    status: :imported,
+    quantity: 10
+  )
+end

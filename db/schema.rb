@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119011438) do
+ActiveRecord::Schema.define(version: 20170119024605) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "category_name", null: false
+  end
+
+  create_table "inventory_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "item_id",       null: false
+    t.integer  "order_item_id"
+    t.string   "status",        null: false
+    t.integer  "quantity",      null: false
+    t.index ["item_id"], name: "index_inventory_items_on_item_id", using: :btree
+    t.index ["order_item_id"], name: "index_inventory_items_on_order_item_id", using: :btree
   end
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -79,6 +90,8 @@ ActiveRecord::Schema.define(version: 20170119011438) do
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
   end
 
+  add_foreign_key "inventory_items", "items"
+  add_foreign_key "inventory_items", "order_items"
   add_foreign_key "items", "categories"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
