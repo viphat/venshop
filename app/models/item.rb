@@ -5,6 +5,7 @@ class Item < ApplicationRecord
 
   NEWEST_ITEMS_LIMIT=4
 
+  has_many :order_items, dependent: :destroy
   belongs_to :category
   delegate :category_name, to: :category
 

@@ -3,6 +3,8 @@ class User < ApplicationRecord
   extend Enumerize
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
+  has_many :orders, dependent: :destroy
+
   validates :email, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
   validates :name, presence: true
   validates :encrypted_password, presence: true
