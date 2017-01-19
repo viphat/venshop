@@ -21,7 +21,7 @@ class Order < ApplicationRecord
   validates :subtotal_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
   validates :total_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
 
-  validate :has_at_least_one_order_item?, on: [:create, :update]
+  validate :has_at_least_one_order_item?, unless: 'status.in_progress?', on: [:create, :update]
   validate :check_subtotal_with_total?, on: [:create, :update]
 
   before_validation :set_ordered_at, on: [:create, :update]
@@ -34,6 +34,16 @@ class Order < ApplicationRecord
 
   enumerize :status, in: [:in_progress, :new, :preparing, :shipping, :done, :cancel, :refunded],
             default: :in_progress, predicates: true, scope: true
+
+  def create_or_update_order_item(order_item_params)
+    # Update Quantity if this Item was added to Shopping Cart before
+    if order_items.where(item_id: order_item_params[:item_id]).exists?
+      order_item = order_items.find_by(item_id: order_item_params[:item_id])
+      order_item.quantity += order_item_params[:quantity].to_i
+      return order_item
+    end
+    order_items.new(order_item_params)
+  end
 
   private
 

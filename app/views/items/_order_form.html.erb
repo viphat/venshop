@@ -1,0 +1,16 @@
+<%= form_for(@order_item, remote: true) do |f| %>
+
+  <div class="form-group">
+    <span class="display-block"><label class="mg-r-5">Quantity want to buy:</label></span>
+    <%= f.number_field :quantity, class: 'form-control', placeholder: 'Quantity', step: 1, min: 1, required: 'required' %>
+  </div>
+
+  <%= f.hidden_field :item_id, value: @order_item.item_id %>
+
+  <div class="form-group">
+    <%= f.submit "Add to Cart", class: "btn btn-primary"  %>
+  </div>
+
+<% end %>
+
+<div id="orderMessagesHolder"></div>

@@ -1,0 +1,2 @@
+<%= link_to(current_order.order_items.size.zero? ? 'Cart' : "#{pluralize(current_order.order_items.size, 'item')} in Cart",
+  show_cart_path) %>

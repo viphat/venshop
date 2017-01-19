@@ -1,0 +1,9 @@
+<%= form_for(order_item, html: { role: 'form' } ) do |f| %>
+  <div class="col-md-6">
+    <%= f.number_field :quantity, class: 'form-control cart-qty', placeholder: 'Quantity', step: 1, min: 1, required: 'required' %>
+  </div>
+  <div class="col-md-6">
+    <%= f.submit 'Update', class: 'btn btn-primary mg-t-5' %>
+    <%= link_to('Remove', order_item_path(order_item), method: :delete, class: 'btn btn-danger mg-t-5') %>
+  </div>
+<% end %>

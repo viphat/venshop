@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  
   def index
     # Fetch Newest Items
     page = params[:page] || 1
@@ -12,6 +13,7 @@ class ItemsController < ApplicationController
     @item = Item.find_by_id(params[:id])
     return render 'items/_item_not_found' if @item.nil?
     authorize @item, :show?
+    @order_item = OrderItem.new(item: @item, order: current_order) unless current_user.nil?
     add_breadcrumb_for_item
   end
 
@@ -37,6 +39,7 @@ class ItemsController < ApplicationController
   def edit
     @item = Item.find(params[:id])
     add_breadcrumb_for_item
+    add_breadcrumb("Edit", edit_item_path(@item))
   end
 
   def update

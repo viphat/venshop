@@ -11,12 +11,24 @@ h2.heading-title {
   display: block;
 }
 
+.pd-r-25 {
+  padding-right: 25px;
+}
+
 .mg-l-5 {
   margin-left: 5px;
 }
 
 .mg-r-5 {
   margin-right: 5px;
+}
+
+.mg-t-5 {
+  margin-top: 5px;
+}
+
+.mg-b-5 {
+  margin-bottom: 5px;
 }
 
 .login-panel, .register-panel, .profile-panel, .item-panel {
@@ -34,6 +46,5 @@ h2.heading-title {
       padding-top: 7px;
       margin-bottom: 0px;
     }
-
   }
 }

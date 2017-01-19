@@ -1,0 +1,16 @@
+<% item = order_item.item %>
+<div class="row">
+  <div class="row col-md-12 horizontal-item">
+    <div class="col-md-2 text-center">
+      <%= image_tag(item.item_image.url(:small), height: '32', width: '51', alt: item.item_name) %>
+    </div>
+    <div class="col-md-6">
+      <span class="display-block"><%= link_to(item.item_name, item_path(item)) %></span>
+      <span class="display-block">Unit Price: <%= item.price %>, Total Price: <%= order_item.total_price %></span>
+    </div>
+
+    <div class="col-md-4">
+      <%= render partial: 'cart/order_item_form', locals: { order_item: order_item } %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="item-page">
+<div class="item-panel">
   <h2 class="text-danger"><%= @item.item_name %></h2>
   <div class="col-md-3 col-xs-12">
     <%= image_tag(@item.item_image.url(:large), height: '86', width: '110', alt: @item.item_name) %>
@@ -6,20 +6,24 @@
   <div class="col-md-9 col-xs-12">
     <p>
       <span class="display-block">
-        <label>Item ID:</label><%= @item.id %>
+        <label class="mg-r-5">Item ID:</label><%= @item.id %>
       </span>
       <span class="display-block">
-        <label>Price:</label><%= @item.price %>
+        <label class="mg-r-5">Price:</label><%= @item.price %>
       </span>
       <span class="display-block">
-        <label>Date Added:</label><%= @item.created_at.strftime('%m/%d/%Y') %>
+        <label class="mg-r-5">Date Added:</label><%= @item.created_at.strftime('%m/%d/%Y') %>
       </span>
+      <span class="display-block">
+        <% if policy(@item).update? %>
+          <label class="mg-r-5">Manage Item:</label>
+          <%= link_to 'Edit', edit_item_path(@item), class: "btn btn-danger mg-l-5" %>
+        <% end %>
+      </span>
+      <% if user_signed_in? %>
+        <%= render 'items/order_form' %>
+      <% end %>
     </p>
-    <% if policy(@item).update? %>
-      <p>
-        <%= link_to 'Edit', edit_item_path(@item), class: "btn btn-primary" %>
-      </p>
-    <% end %>
   </div>
   <div class="clearfix"></div>
   <hr/>

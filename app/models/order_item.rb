@@ -11,6 +11,7 @@ class OrderItem < ApplicationRecord
   validates :quantity, presence: true, numericality: { greater_than: 0, only_integer: true }
   validates :unit_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
   validates :total_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
+  validates_uniqueness_of :item_id, scope: :order_id
 
   validate :check_with_inventory?, on: [:create, :update]
 

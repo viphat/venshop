@@ -1,0 +1,23 @@
+<div class="cart-panel">
+  <h2 class="bg-primary heading-title">Shopping Cart</h2>
+  <% if @order_items.size.zero? %>
+    <p class="text-warning text-center empty-text">
+      Your cart is empty, why not to buy something!
+      <span class="display-block mg-t-5">
+        <%= link_to 'Back To Home', root_path, class: 'btn btn-warning' %>
+      </span>
+    </p>
+  <% else %>
+    <%= render partial: 'cart/order_item', collection: @order_items, as: :order_item %>
+    <hr/>
+    <div class="row total-row">
+      <p class="text-right pd-r-25">
+        <span class="display-block"><strong>Subtotal</strong>: $<%= current_order.subtotal_price %></span>
+        <span class="display-block"><strong>Shipping Cost</strong>:
+          $<%= current_order.subtotal_price >= Order::FREE_SHIPPING_PRICE ? current_order.total_price : Order::SHIPPING_COST %>
+        </span>
+        <span class="display-block"><strong>Total</strong>: $<%= current_order.total_price %></span>
+      </p>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,6 @@
+<% if @order.errors.any? || @order_item.errors.any? %>
+  $("#orderMessagesHolder").html("<%= escape_javascript(render 'cart/added_failed') %>")
+<% else %>
+  $("#orderMessagesHolder").html("<%= escape_javascript(render 'cart/added_successfully') %>")
+  $("#shoppingCart").html("<%= escape_javascript(render 'layouts/cart_text') %>")
+<% end %>
