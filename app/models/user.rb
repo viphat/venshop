@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   extend Enumerize
-  
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   has_many :orders, dependent: :destroy
@@ -22,6 +22,11 @@ class User < ApplicationRecord
       user.name = auth.info.name
       user.avatar = auth.info.image
     end
+  end
+
+  def update_address(address)
+    self.address = address
+    self.save
   end
 
 end

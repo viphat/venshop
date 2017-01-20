@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119024605) do
+ActiveRecord::Schema.define(version: 20170120031631) do
 
   create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at",    null: false
@@ -41,7 +41,9 @@ ActiveRecord::Schema.define(version: 20170119024605) do
     t.integer  "category_id"
     t.string   "asin",                    limit: 10
     t.text     "description",             limit: 65535,               null: false
+    t.integer  "user_id"
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
+    t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
   create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -57,14 +59,15 @@ ActiveRecord::Schema.define(version: 20170119024605) do
   end
 
   create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "user_id"
-    t.string   "status",                                  null: false
-    t.float    "subtotal_price", limit: 24, default: 0.0, null: false
-    t.float    "total_price",    limit: 24, default: 0.0, null: false
+    t.string   "status",                                    null: false
+    t.float    "subtotal_price",   limit: 24, default: 0.0, null: false
+    t.float    "total_price",      limit: 24, default: 0.0, null: false
     t.datetime "ordered_at"
     t.datetime "delivered_at"
+    t.string   "shipping_address"
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
@@ -93,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170119024605) do
   add_foreign_key "inventory_items", "items"
   add_foreign_key "inventory_items", "order_items"
   add_foreign_key "items", "categories"
+  add_foreign_key "items", "users"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"

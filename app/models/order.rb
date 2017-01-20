@@ -24,10 +24,11 @@ class Order < ApplicationRecord
   validate :has_at_least_one_order_item?, unless: 'status.in_progress?', on: [:create, :update]
   validate :check_subtotal_with_total?, on: [:create, :update]
 
-  before_validation :set_ordered_at, on: [:create, :update]
-  before_validation :set_delivered_at, on: [:create, :update]
-  before_validation :set_subtotal_price, on: [:create, :update]
-  before_validation :set_total_price, on: [:create, :update]
+  before_validation :set_ordered_at
+  before_validation :set_delivered_at
+
+  before_save :set_subtotal_price
+  before_save :set_total_price
 
   after_save :create_sold_inventory_items, if: "status.in?(['new', 'preparing', 'shipping', 'done'])"
   after_save :destroy_sold_inventory_items, if: "status.in?(['in_progress', 'cancel', 'refunded'])"
@@ -43,6 +44,18 @@ class Order < ApplicationRecord
       return order_item
     end
     order_items.new(order_item_params)
+  end
+
+  def checkout_order(address)
+    return false unless self.status.in_progress?
+    self.status = :new
+    self.shipping_address = address
+    if self.save
+      # Use Sidekiq to send Email
+      OrderMailer.delay.new_order(self)
+      return true
+    end
+    false
   end
 
   private
@@ -62,7 +75,7 @@ class Order < ApplicationRecord
 
     # Order's total price before tax and shipping cost
     def set_subtotal_price
-      self.subtotal_price = order_items.sum(:total_price)
+      self.subtotal_price = OrderItem.where(order_id: id).sum(:total_price)
     end
 
     # Order's total price after tax and shipping cost

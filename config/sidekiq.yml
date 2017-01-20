@@ -1,0 +1,7 @@
+:concurrency: 5
+:pidfile: ./tmp/pids/sidekiq.pid
+:queues:
+  - [paperclip,5]
+  - default
+  - low
+  - mailer
