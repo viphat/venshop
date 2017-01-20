@@ -8,7 +8,6 @@ RSpec.describe Item, :type => :model do
 
     it { is_expected.to validate_presence_of(:item_name) }
     it { is_expected.to validate_length_of(:item_name)
-                        .is_at_least(10)
                         .is_at_most(255) }
     it { is_expected.to validate_presence_of(:category) }
     it { is_expected.to validate_presence_of(:price) }
