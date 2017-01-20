@@ -69,9 +69,20 @@ gem 'pundit'
 gem 'enumerize'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
   gem 'pry-rails'
+  gem 'pry-byebug'
+
+  # RSpec
+  gem 'rspec-rails'
+end
+
+group :test do
+
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
+
 end
 
 group :development do
