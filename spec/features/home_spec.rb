@@ -9,10 +9,10 @@ describe 'home page', :type => :feature do
       update_profile_is_visible: true|
 
     within('nav.navbar') do
-      expect(page.has_link?("Login", href: new_user_session_path)).to be login_is_visible
-      expect(page.has_link?("Register", href: new_user_registration_path)).to be register_is_visible
-      expect(page.has_link?("Logout", href: destroy_user_session_path)).to be logout_is_visible
-      expect(page.has_link?("Update Profile", href: new_user_update_profile_path)).to be update_profile_is_visible
+      expect(page.has_link?('Login', href: new_user_session_path)).to be login_is_visible
+      expect(page.has_link?('Register', href: new_user_registration_path)).to be register_is_visible
+      expect(page.has_link?('Logout', href: destroy_user_session_path)).to be logout_is_visible
+      expect(page.has_link?('Update Profile', href: new_user_update_profile_path)).to be update_profile_is_visible
     end
 
   end
@@ -28,7 +28,7 @@ describe 'home page', :type => :feature do
     expect(page).not_to have_content(newest_items.last)
   end
 
-  it "should have all categories's link on sidebar" do
+  it 'should have all categories\'s link on sidebar' do
     NUM_OF_CATEGORIES = 5
     FactoryGirl.create_list(:category, NUM_OF_CATEGORIES)
     visit '/'
@@ -64,7 +64,7 @@ describe 'home page', :type => :feature do
       within('nav.navbar') do
         click_link("Logout")
       end
-      expect(page).to have_content "Signed out successfully."
+      expect(page).to have_content 'Signed out successfully.'
       check_links_on_header(logout_is_visible: false, update_profile_is_visible: false)
     end
 

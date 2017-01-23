@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'register page', :type => :feature do
 
-  PASSWORD = "123456"
-  PASSWORD_CONFIRMATION = "123456"
-  WRONG_PASSWORD_CONFIRMATION = "12345"
+  PASSWORD = '123456'
+  PASSWORD_CONFIRMATION = '123456'
+  WRONG_PASSWORD_CONFIRMATION = '12345'
 
   let(:foo_user) { FactoryGirl.create(:user) }
 
@@ -28,9 +28,9 @@ describe 'register page', :type => :feature do
     within('.register-panel') do
       fill_in_registration_form
     end
-    click_button "Register"
+    click_button 'Register'
     within('.alert') do
-      expect(page).to have_content "You have signed up successfully."
+      expect(page).to have_content 'You have signed up successfully.'
     end
   end
 
@@ -38,9 +38,9 @@ describe 'register page', :type => :feature do
     within('.register-panel') do
       fill_in_registration_form(password_confirmation: WRONG_PASSWORD_CONFIRMATION)
     end
-    click_button "Register"
+    click_button 'Register'
     within('.alert') do
-      expect(page).to have_content "Password confirmation doesn't match Password"
+      expect(page).to have_content 'Password confirmation doesn\'t match Password'
     end
   end
 
@@ -49,9 +49,9 @@ describe 'register page', :type => :feature do
     within('.register-panel') do
       fill_in_registration_form(email: foo_user.email)
     end
-    click_button "Register"
+    click_button 'Register'
     within('.alert') do
-      expect(page).to have_content "Email has already been taken"
+      expect(page).to have_content 'Email has already been taken'
     end
   end
 

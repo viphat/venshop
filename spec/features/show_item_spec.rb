@@ -17,11 +17,11 @@ describe 'show item page', :type => :feature do
     end
   end
 
-  context 'As guest' do
+  context 'As a guest' do
 
     it 'can view an item with its attributes' do
       bar_item = FactoryGirl.create(:item)
-      within(".item-page") do
+      within('.item-page') do
         expect(page).to have_content(foo_item.item_name)
         expect(page.has_xpath?("//img[@alt='#{foo_item.item_name}' and @src='#{foo_item.item_image.url(:large)}']")).to be_truthy
         expect(page).to have_content(foo_item.id)
@@ -31,11 +31,6 @@ describe 'show item page', :type => :feature do
       end
     end
 
-  end # Context 'As guest'
-
-  context 'As user' do
-    include_context 'login_as_user'
-
-  end
+  end # Context 'As a guest'
 
 end

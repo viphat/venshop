@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'login page', :type => :feature do
 
-  CORRECT_PASSWORD = "123456"
-  WRONG_PASSWORD = "abcxyz"
+  CORRECT_PASSWORD = '123456'
+  WRONG_PASSWORD = 'abcxyz'
 
   let(:user) { FactoryGirl.create(:user, password: CORRECT_PASSWORD) }
 
@@ -18,7 +18,7 @@ describe 'login page', :type => :feature do
     end
     click_button 'Login'
     within('.alert') do
-      expect(page).to have_content "Signed in successfully."
+      expect(page).to have_content 'Signed in successfully.'
     end
   end
 
@@ -29,7 +29,7 @@ describe 'login page', :type => :feature do
     end
     click_button 'Login'
     within('.alert') do
-      expect(page).not_to have_content "Signed in successfully."
+      expect(page).not_to have_content 'Signed in successfully.'
     end
   end
 
