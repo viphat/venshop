@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170118024949) do
     t.datetime "item_image_updated_at"
     t.integer  "category_id"
     t.string   "asin",                    limit: 10
-    t.text     "description",             limit: 65535,               null: false
+    t.text     "description",             limit: 65535
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
   end
 

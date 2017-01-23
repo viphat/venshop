@@ -4,11 +4,11 @@
     <%= render 'layouts/page_header' %>
     <div class="container">
       <%= render 'layouts/messages' %>
-      <div class="row">
+      <div class="row" id="breadcrumbs">
         <%= render_breadcrumbs %>
       </div>
       <div class="row">
-        <div class="col-md-3 hidden-xs"><%= CategoriesCell.() %></div>
+        <div class="col-md-3 hidden-xs" id="sidebar"><%= CategoriesCell.() %></div>
         <div class="col-md-9 col-sm-12 col-xs-12"><%= yield %></div>
       </div>
     </div>
