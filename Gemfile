@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -58,10 +59,32 @@ gem "cells-erb"
 # Menu Breadcumbs
 gem "breadcrumbs_on_rails"
 
+# Authentication
+gem 'devise'
+
+# Authorization
+gem 'pundit'
+
+# Enumerize (using string instead of Number as Enum Type on Rails)
+gem 'enumerize'
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
   gem 'pry-rails'
+  gem 'pry-byebug'
+
+  # RSpec
+  gem 'rspec-rails'
+  gem 'capybara'
+end
+
+group :test do
+
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'timecop'
+
 end
 
 group :development do
