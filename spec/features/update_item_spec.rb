@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Edit Item', type: :feature do
+describe 'Update Item', type: :feature do
   let(:item) { FactoryGirl.create(:item) }
 
   shared_examples_for 'not authorized error' do

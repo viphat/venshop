@@ -26,10 +26,10 @@ RSpec.describe User, type: :model do
     end
   end
 
-  it_behaves_like 'check validity of email', "viphat@gmail.com", true
-  it_behaves_like 'check validity of email', "viphat@gmail", false
-  it_behaves_like 'check validity of email', "viphat.work", false
-  it_behaves_like 'check validity of email', "viphat@.com", false
-  it_behaves_like 'check validity of email', "viph*at@@gmail.com", false
+  it_behaves_like 'check validity of email', 'viphat@gmail.com', true
+  it_behaves_like 'check validity of email', 'viphat@gmail', false
+  it_behaves_like 'check validity of email', 'viphat.work', false
+  it_behaves_like 'check validity of email', 'viphat@.com', false
+  it_behaves_like 'check validity of email', 'viph*at@@gmail.com', false
 
 end

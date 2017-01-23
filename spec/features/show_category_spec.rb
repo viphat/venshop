@@ -41,7 +41,7 @@ describe 'show category page', type: :feature do
           expect(page).to have_link(item.item_name, href: item_path(item))
           expect(page).to have_content "Price: #{item.price}"
         end
-        expect(page).to have_selector(".horizontal-item", count: Category::ITEMS_LIMIT)
+        expect(page).to have_selector('.horizontal-item', count: Category::ITEMS_LIMIT)
         expect(page).not_to have_link(last_item.item_name, href: item_path(last_item))
       end
     end
@@ -51,7 +51,7 @@ describe 'show category page', type: :feature do
       within('.category-page') do
         expect(page).to have_link(last_item.item_name, href: item_path(last_item))
         expect(page).to have_content "Price: #{last_item.price}"
-        expect(page).to have_selector(".horizontal-item", count: 1)
+        expect(page).to have_selector('.horizontal-item', count: 1)
         expect(page).not_to have_link(first_item.item_name, href: item_path(first_item))
       end
     end

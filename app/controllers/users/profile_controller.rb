@@ -3,13 +3,15 @@ class Users::ProfileController < ApplicationController
   layout 'without_sidebar'
 
   def edit
-    @user = current_user
+    @user = User.find(params[:id])
+    authorize @user, :update?
   end
 
   def update
     @user = User.find(params[:id])
+    authorize @user, :update?
     if @user.update_attributes(user_params)
-      flash[:success] = 'Profile updated'
+      flash[:success] = 'Profile updated.'
     else
       flash[:error] = @user.errors.full_messages
     end

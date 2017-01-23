@@ -15,7 +15,6 @@ describe 'show item page', type: :feature do
   end
 
   context 'As a guest' do
-
     before(:each) do
       visit item_path(foo_item)
     end
