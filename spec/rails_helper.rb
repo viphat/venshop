@@ -6,11 +6,12 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 
+# Add additional requires below this line. Rails is not loaded until this point!
 require "paperclip/matchers"
 require 'capybara/rspec'
 require 'capybara/rails'
 
-# Add additional requires below this line. Rails is not loaded until this point!
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -41,9 +42,12 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+
+  config.include Paperclip::Shoulda::Matchers
+  config.include Warden::Test::Helpers
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  config.include Paperclip::Shoulda::Matchers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -109,6 +113,11 @@ RSpec.configure do |config|
 
   config.append_after(:each) do
     DatabaseCleaner.clean
+  end
+
+  config.after :each do
+    # Reset warden after each test
+    Warden.test_reset!
   end
 
 end

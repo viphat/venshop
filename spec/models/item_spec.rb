@@ -3,6 +3,8 @@ require "rails_helper"
 RSpec.describe Item, :type => :model do
 
   context 'check by shoulda matchers' do
+    subject(:item) { FactoryGirl.build(:item) }
+
     it { is_expected.to belong_to(:category) }
     it { is_expected.to delegate_method(:category_name).to(:category) }
 
