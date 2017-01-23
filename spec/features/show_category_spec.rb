@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'show category page', :type => :feature do
+describe 'show category page', type: :feature do
 
   let(:category) { FactoryGirl.create(:category) }
   let(:other_category) { FactoryGirl.create(:other_category) }
@@ -9,17 +9,15 @@ describe 'show category page', :type => :feature do
     visit category_path(category)
     within('#breadcrumbs') do
       expect(page).to have_link('Home', href: root_path)
-      expect(page).to have_content "#{category.category_name}"
+      expect(page).to have_content category.category_name
     end
   end
 
   context 'empty category' do
-
     it 'should render empty page' do
       visit category_path(category)
       expect(page).to have_content "#{category.category_name} doesn't have any items."
     end
-
   end
 
   context 'non-empty category' do

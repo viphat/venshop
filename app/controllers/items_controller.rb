@@ -24,18 +24,19 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     authorize @item, :create?
-    if @item.save
-      flash[:success] = "Item was created successfully."
-      add_breadcrumb_for_item
-    else
+    unless @item.save
       add_breadcrumb_for_creating
       flash[:error] = @item.errors.full_messages
+      return render 'new'
     end
+    flash[:success] = "Item was created successfully."
+    add_breadcrumb_for_item
     render 'show'
   end
 
   def edit
     @item = Item.find(params[:id])
+    authorize @item, :update?
     add_breadcrumb_for_item
   end
 

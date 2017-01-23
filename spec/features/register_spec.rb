@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'register page', :type => :feature do
+describe 'register page', type: :feature do
 
   PASSWORD = "123456"
   PASSWORD_CONFIRMATION = "123456"

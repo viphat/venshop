@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'users/register' => 'users/registrations#new', as: :new_user_registration
     post 'users/register' => 'users/registrations#create', as: :user_registration
     get 'users/login' => 'users/sessions#new', as: :new_user_session
-    post 'users/login' => 'users/sessions#create', as: :user_session
+    post 'users/login' => 'users/sessions#create', as: :user_session  
     delete 'users/logout'=> 'users/sessions#destroy', as: :destroy_user_session
     get 'users/:id/profile' => 'users/profile#edit', as: :edit_user_profile
     put 'users/:id/profile' => 'users/profile#update', as: :update_user_profile

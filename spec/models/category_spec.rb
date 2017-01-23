@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Category, :type => :model do
+RSpec.describe Category, type: :model do
 
   context 'check by shoulda matchers' do
     subject(:category) { FactoryGirl.build(:category) }
