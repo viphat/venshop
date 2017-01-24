@@ -27,11 +27,11 @@ RSpec.describe Order, type: :model do
     # Check custom callbacks - Create Inventory Items
     include_context 'create_a_valid_order'
     it 'must create sold inventory items' do
-      expect(order.inventory_items.length).to be_zero
+      expect(order.inventory_items.count).to be_zero
       order_item.valid?
       order.status = status
-      expect{ order.save }.to change{ InventoryItem.sold.length }.by(1)
-      expect(order.reload.inventory_items.length).to eq 1
+      expect{ order.save }.to change{ InventoryItem.sold.count }.by(1)
+      expect(order.reload.inventory_items.count).to eq 1
     end
   end
 
@@ -45,10 +45,10 @@ RSpec.describe Order, type: :model do
     end
 
     it 'must destroy sold inventory items' do
-      expect(order.inventory_items.length).to eq 1
+      expect(order.inventory_items.count).to eq 1
       order.status = status
       order.save and order.reload
-      expect(order.inventory_items.length).to be_zero
+      expect(order.inventory_items.count).to be_zero
     end
 
   end
