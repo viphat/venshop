@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170119024605) do
     t.datetime "item_image_updated_at"
     t.integer  "category_id"
     t.string   "asin",                    limit: 10
-    t.text     "description",             limit: 65535,               null: false
+    t.text     "description",             limit: 65535
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
   end
 
@@ -96,4 +96,5 @@ ActiveRecord::Schema.define(version: 20170119024605) do
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
+
 end

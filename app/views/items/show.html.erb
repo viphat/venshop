@@ -24,6 +24,11 @@
         <%= render 'items/order_form' %>
       <% end %>
     </p>
+    <% if policy(@item).update? %>
+      <p>
+        <%= link_to 'Edit', edit_item_path(@item), class: "btn btn-primary" %>
+      </p>
+    <% end %>
   </div>
   <div class="clearfix"></div>
   <hr/>

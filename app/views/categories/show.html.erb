@@ -1,7 +1,7 @@
 <div class="category-page">
   <h2 class="bg-primary heading-title"><%= @category.category_name %></h2>
   <% if @items.length.zero? %>
-    <%= render partial: 'shared/empty', locals: { message: "#{@category.category_name} hasn't any items." } %>
+    <%= render partial: 'shared/empty', locals: { message: "#{@category.category_name} doesn't have any items." } %>
   <% else %>
     <%= render partial: 'shared/horizontal_item', collection: @items, as: :item %>
     <div class="clearfix text-center">

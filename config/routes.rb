@@ -17,11 +17,10 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show, :new, :edit, :create, :update]
   resources :categories, only: [:show]
+  resources :orders, only: [:index, :edit, :update]
+  resources :order_items, only: [:create, :update, :destroy]
 
   get '/cart', to: 'cart#show', as: :show_cart
   put '/cart', to: 'cart#update', as: :update_cart
-
-  resources :orders, only: [:index, :edit, :update]
-  resources :order_items, only: [:create, :update, :destroy]
 
 end
