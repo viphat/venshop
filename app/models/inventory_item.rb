@@ -7,7 +7,6 @@ class InventoryItem < ApplicationRecord
   belongs_to :item
   belongs_to :order_item, optional: true # Rails 5 belongs_to is required by default
 
-  validates :status, presence: true
   validates :item, presence: true
   validates :order_item, absence: true, if: 'status.imported?'
   validates :order_item, presence: true, uniqueness: true, if: 'status.sold?'

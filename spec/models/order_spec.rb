@@ -72,7 +72,7 @@ RSpec.describe Order, type: :model do
     subject(:order) { FactoryGirl.build(:order) }
     include_context 'skip_order_callbacks'
 
-    it { is_expected.to have_many(:order_items).dependent(:destroy) }
+    it { is_expected.to have_many(:order_items).dependent(:destroy).inverse_of(:order) }
     it { is_expected.to have_many(:items).through(:order_items) }
     it { is_expected.to have_many(:inventory_items).through(:order_items) }
     it { is_expected.to belong_to(:user) }

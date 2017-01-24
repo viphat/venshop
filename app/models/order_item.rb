@@ -16,8 +16,15 @@ class OrderItem < ApplicationRecord
   validate :check_with_inventory?, on: [:create, :update]
 
   before_validation :set_price, on: [:create, :update]
+  after_save :update_inventory_item
 
   private
+
+    def update_inventory_item
+      inventory_item = InventoryItem.find_by(order_item: id)
+      return if inventory_item.nil?
+      inventory_item.save
+    end
 
     def set_price
       self.unit_price = item.price if unit_price.nil?
@@ -25,7 +32,8 @@ class OrderItem < ApplicationRecord
     end
 
     def check_with_inventory?
-      self.errors.add(:quantity, 'must less than or equal to inventory quantity') if quantity > item.quantity
+      return if item.nil?
+      self.errors.add(:quantity, 'must less than or equal to inventory quantity') if !quantity.nil? && quantity > item.quantity
     end
 
 end

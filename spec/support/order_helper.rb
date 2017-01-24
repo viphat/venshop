@@ -2,9 +2,18 @@ module OrderHelper
 
   RSpec.shared_context 'create_a_valid_order' do
     let(:item) { FactoryGirl.create(:item) }
+
     let(:imported_item) { FactoryGirl.create(:inventory_item, item: item)}
+
     let(:order) { FactoryGirl.create(:order) }
+
     let(:order_item) { FactoryGirl.create(:order_item, item: item, order: order) }
+
+    let(:sold_item) do
+      order_item.valid?
+      order.update_attributes(status: :new)
+      order.inventory_items.first
+    end
 
     before(:each) do
       imported_item.valid?
