@@ -3,7 +3,7 @@
   <body>
     <%= render 'layouts/page_header' %>
     <div class="container">
-      <%= render 'layouts/messages' %>
+      <%= render partial: 'layouts/messages', collection: flash, as: :f %>
       <div class="row" id="breadcrumbs">
         <%= render_breadcrumbs %>
       </div>

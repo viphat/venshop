@@ -4,7 +4,8 @@ describe 'show item page', :type => :feature do
   include FeaturesHelper
 
   let(:foo_item) { FactoryGirl.create(:item) }
-
+  let(:bar_item) { FactoryGirl.create(:item) }
+  
   before(:each) do
     visit item_path(foo_item)
   end
@@ -20,7 +21,6 @@ describe 'show item page', :type => :feature do
   context 'As a guest' do
 
     it 'can view an item with its attributes' do
-      bar_item = FactoryGirl.create(:item)
       within('.item-page') do
         expect(page).to have_content(foo_item.item_name)
         expect(page.has_xpath?("//img[@alt='#{foo_item.item_name}' and @src='#{foo_item.item_image.url(:large)}']")).to be_truthy
