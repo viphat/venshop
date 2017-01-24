@@ -21,7 +21,7 @@ describe 'show item page', type: :feature do
 
     it 'can see an item with its attributes' do
       bar_item = FactoryGirl.create(:item)
-      within('.item-page') do
+      within('.item-panel') do
         expect(page).to have_content(foo_item.item_name)
         expect(page.has_xpath?("//img[@alt='#{foo_item.item_name}' and @src='#{foo_item.item_image.url(:large)}']")).to be_truthy
         expect(page).to have_content(foo_item.id)

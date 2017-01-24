@@ -1,10 +1,12 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe Item, type: :model do
 
   context 'check by shoulda matchers' do
     subject(:item) { FactoryGirl.build(:item) }
 
+    it { is_expected.to have_many(:order_items).dependent(:destroy) }
+    it { is_expected.to have_many(:inventory_items).dependent(:destroy) }
     it { is_expected.to belong_to(:category) }
     it { is_expected.to delegate_method(:category_name).to(:category) }
 

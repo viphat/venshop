@@ -5,14 +5,13 @@ class Order < ApplicationRecord
   # We will provide free shipping if the order's total price is greater or equal to
   FREE_SHIPPING_PRICE=100.0
 
-  belongs_to :user
   has_many :order_items, dependent: :destroy, inverse_of: :order
   has_many :items, through: :order_items
   has_many :inventory_items, through: :order_items
+  belongs_to :user
 
   accepts_nested_attributes_for :order_items
 
-  validates :status, presence: true
   validates :user, presence: true
   validates :ordered_at, absence: true, if: 'status.in_progress?'
   validates :ordered_at, presence: true, unless: 'status.in_progress?'
@@ -21,7 +20,7 @@ class Order < ApplicationRecord
   validates :subtotal_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
   validates :total_price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
 
-  validate :has_at_least_one_order_item?, unless: 'status.in_progress?', on: [:create, :update]
+  validate :has_at_least_one_order_item?, unless: 'status.in?(["in_progress", "cancel", "refunded"])', on: [:create, :update]
   validate :check_subtotal_with_total?, on: [:create, :update]
 
   before_validation :set_ordered_at, on: [:create, :update]
@@ -29,8 +28,8 @@ class Order < ApplicationRecord
   before_validation :set_subtotal_price, on: [:create, :update]
   before_validation :set_total_price, on: [:create, :update]
 
-  after_save :create_sold_inventory_items, if: "status.in?(['new', 'preparing', 'shipping', 'done'])"
-  after_save :destroy_sold_inventory_items, if: "status.in?(['in_progress', 'cancel', 'refunded'])"
+  after_save :create_sold_inventory_items, if: 'status.in?(["new", "preparing", "shipping", "done"])'
+  after_save :destroy_sold_inventory_items, if: 'status.in?(["in_progress", "cancel", "refunded"])'
 
   enumerize :status, in: [:in_progress, :new, :preparing, :shipping, :done, :cancel, :refunded],
             default: :in_progress, predicates: true, scope: true
@@ -72,13 +71,15 @@ class Order < ApplicationRecord
     end
 
     def set_ordered_at
-      return if status.in_progress?
+      return unless self.persisted?
+      return self.ordered_at = nil if status.in_progress?
       return unless ordered_at.nil?
       self.ordered_at = Time.current
     end
 
     def set_delivered_at
-      return unless status.done?
+      return unless self.persisted?
+      return self.delivered_at = nil unless status.done? || status.refunded?
       return unless delivered_at.nil?
       self.delivered_at = Time.current
     end

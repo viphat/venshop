@@ -7,7 +7,7 @@ describe 'Update Profile', type: :feature do
   context 'As a guest' do
     it 'should required login to be able to update profile' do
       visit edit_user_profile_path(user)
-      expect(page).to have_content "You need to sign in or sign up before continuing."
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
     end
   end
 
@@ -15,7 +15,7 @@ describe 'Update Profile', type: :feature do
     include_context 'login_as_user'
 
     it 'should raise error' do
-      expect { visit edit_user_profile_path(user) }.to raise_error(Pundit::NotAuthorizedError) 
+      expect { visit edit_user_profile_path(user) }.to raise_error(Pundit::NotAuthorizedError)
     end
 
   end

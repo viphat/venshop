@@ -25,7 +25,6 @@ describe 'Update Item', type: :feature do
       end
     end
 
-
     it 'should render item form correctly' do
       categories = Category.select(:category_name).pluck(:category_name)
       within('.item-panel') do
@@ -63,7 +62,10 @@ describe 'Update Item', type: :feature do
   end
 
   context 'As a guest' do
-    it_behaves_like 'not authorized error'
+    it 'should required login to be able to edit an item' do
+      visit edit_item_path(item)
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    end
   end
 
 end

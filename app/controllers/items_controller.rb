@@ -33,7 +33,7 @@ class ItemsController < ApplicationController
     end
     flash[:success] = 'Item was created successfully.'
     add_breadcrumb_for_item
-    render 'show'
+    redirect_to item_path(@item)
   end
 
   def edit
@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
       return render 'edit'
     end
     flash[:success] = 'Item was updated successfully.'
-    render 'show'
+    redirect_to item_path(@item)
   end
 
   private

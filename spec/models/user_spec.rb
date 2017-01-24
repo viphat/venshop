@@ -1,9 +1,11 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
   context 'check by shoulda matchers' do
     subject(:user) { FactoryGirl.build(:user) }
+
+    it { is_expected.to have_many(:orders).dependent(:destroy) }
 
     it { is_expected.to validate_presence_of(:email) }
     it { is_expected.to validate_uniqueness_of(:email).case_insensitive }

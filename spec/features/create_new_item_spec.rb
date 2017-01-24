@@ -22,7 +22,7 @@ describe 'Create new item', type: :feature do
     it 'should render properly breadcrumbs' do
       within('#breadcrumbs') do
         expect(page).to have_link('Home', href: root_path)
-        expect(page).to have_content("Create New Item")
+        expect(page).to have_content('Create New Item')
       end
     end
 
@@ -87,7 +87,10 @@ describe 'Create new item', type: :feature do
   end
 
   context 'As a guest' do
-    it_behaves_like 'not authorized error'
+    it 'should required login to be able to add new Item' do
+      visit new_item_path
+      expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    end
   end
 
 end
