@@ -20,4 +20,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  order:
+    status:
+      in_progress: 'In Progress'
+      new: 'New'
+      preparing: 'Preparing'
+      shipping: 'Shipping'
+      done: 'Done'
+      cancel: 'Cancel'
+      refunded: 'Refunded'

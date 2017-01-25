@@ -1,6 +1,7 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
-
+  layout 'without_sidebar'
+  
   def new
     @checkout = initialize_checkout
   end

@@ -8,7 +8,10 @@ class ApplicationController < ActionController::Base
 
     def current_order
       return Order.find(session[:order_id]) if session[:order_id].present?
-      Order.new(user: current_user)
+      order = Order.find_by(user: current_user, status: :in_progress)
+      return Order.new(user: current_user) if order.nil?
+      session[:order_id] = order.id
+      order
     end
 
 end

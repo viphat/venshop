@@ -1,19 +1,11 @@
+require_relative './item_helper.rb'
+
 module ShoppingCartHelper
+  include ItemHelper
 
   RSpec.shared_context 'preparing_data_for_shopping_cart' do
-
-    let(:items) { Item.all }
+    include_context 'preparing_items'
     let(:item) { Item.first }
-
-    before(:each) do
-      # Create Items
-      FactoryGirl.create_list(:item, 5)
-      # Import Items
-      items.each do |item|
-        item.inventory_items.create(quantity: 5)
-      end
-    end
-
   end
 
   RSpec.shared_context 'added_items_to_cart' do

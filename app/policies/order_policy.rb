@@ -1,7 +1,7 @@
 class OrderPolicy < ApplicationPolicy
 
-  def index?
-    false
+  def show?
+    (user.user? && user.id == record.user_id) || user.admin?
   end
 
   def create?

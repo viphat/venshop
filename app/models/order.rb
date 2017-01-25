@@ -1,6 +1,8 @@
 class Order < ApplicationRecord
   extend Enumerize
+  scope :newest, -> { order(created_at: :desc) }
 
+  PAGE_SIZE = 10
   SHIPPING_COST=3.0
   # We will provide free shipping if the order's total price is greater or equal to
   FREE_SHIPPING_PRICE=100.0

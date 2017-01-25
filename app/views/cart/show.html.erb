@@ -5,17 +5,6 @@
   <% else %>
     <%= render partial: 'cart/order_item', collection: @order_items, as: :order_item %>
     <hr/>
-    <div class="row total-row">
-      <p class="text-right pd-r-25">
-        <span class="display-block"><strong>Subtotal</strong>: $<%= current_order.subtotal_price %></span>
-        <span class="display-block"><strong>Shipping Cost</strong>:
-          $<%= current_order.subtotal_price >= Order::FREE_SHIPPING_PRICE ? 0.0 : Order::SHIPPING_COST %>
-        </span>
-        <span class="display-block"><strong>Total</strong>: $<%= current_order.total_price %></span>
-      </p>
-      <p class="text-right pd-r-25">
-        <%= link_to "Checkout", new_checkout_path, class: "btn btn-primary" %>
-      </p>
-    </div>
+    <%= render partial: 'shared/total_price' %>
   <% end %>
 </div>

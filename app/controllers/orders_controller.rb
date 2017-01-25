@@ -2,6 +2,14 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   layout 'without_sidebar'
 
+  def index
+    page = params[:page] || 1
+    @orders = Order.newest.without_status(:in_progress).where(user: current_user)
+                   .includes(:order_items)
+                   .page(page).per(Order::PAGE_SIZE)
+    @orders.each { |x| authorize x, :show? }
+  end
+
   def destroy
     @order = Order.find_by(params[:id])
     authorize @order, :update?

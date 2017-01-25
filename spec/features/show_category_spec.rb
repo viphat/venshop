@@ -22,9 +22,9 @@ describe 'show category page', type: :feature do
 
   context 'non-empty category' do
 
-    let(:first_item) { Item.newest.first }
-    let(:last_item) { Item.newest.last }
-    let(:first_n_items) { Item.newest.first(Category::ITEMS_LIMIT) }
+    let(:newest_item) { Item.newest.first }
+    let(:oldest_item) { Item.newest.last }
+    let(:first_page_items) { Item.newest.first(Category::ITEMS_LIMIT) }
 
     before(:each) do
       (Category::ITEMS_LIMIT + 1).times do
@@ -37,22 +37,22 @@ describe 'show category page', type: :feature do
       visit category_path(category)
       within('.category-page') do
         expect(page).to have_content category.category_name
-        first_n_items.each do |item|
+        first_page_items.each do |item|
           expect(page).to have_link(item.item_name, href: item_path(item))
           expect(page).to have_content "Price: #{item.price}"
         end
         expect(page).to have_selector('.horizontal-item', count: Category::ITEMS_LIMIT)
-        expect(page).not_to have_link(last_item.item_name, href: item_path(last_item))
+        expect(page).not_to have_link(oldest_item.item_name, href: item_path(oldest_item))
       end
     end
 
     it 'should render correctly when I visit 2nd page' do
       visit category_path(id: category.id, page: 2)
       within('.category-page') do
-        expect(page).to have_link(last_item.item_name, href: item_path(last_item))
-        expect(page).to have_content "Price: #{last_item.price}"
+        expect(page).to have_link(oldest_item.item_name, href: item_path(oldest_item))
+        expect(page).to have_content "Price: #{oldest_item.price}"
         expect(page).to have_selector('.horizontal-item', count: 1)
-        expect(page).not_to have_link(first_item.item_name, href: item_path(first_item))
+        expect(page).not_to have_link(newest_item.item_name, href: item_path(newest_item))
       end
     end
 

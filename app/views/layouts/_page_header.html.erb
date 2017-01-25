@@ -14,6 +14,7 @@
         <li><%= link_to 'Home', root_path %></li>
         <% if user_signed_in? %>
           <li id="shoppingCart"><%= render 'layouts/cart_text' %></li>
+          <li><%= link_to "Your Orders", orders_path %></li>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">

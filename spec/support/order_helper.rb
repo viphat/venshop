@@ -1,18 +1,45 @@
-module OrderHelper
+require_relative './item_helper.rb'
 
-  def import_item(item:, quantity:)
-    FactoryGirl.create(:inventory_item, item: item, quantity: quantity)
+module OrderHelper
+  include ItemHelper
+
+  def create_an_order(user, status)
+    order = Order.new(user: user)
+    item = Item.all.sample
+    order_item = order.order_items.new(item: item, quantity: 1)
+    order_item.save and order.save
+    order.update_attributes(status: status)
+    order
+  end
+
+  RSpec.shared_context 'preparing_data_for_view_orders' do
+
+    include_context 'preparing_items' do
+      let(:number_of_creating_items) { 20 }
+      let(:quantity_of_each_item) { 100 }
+    end
+
+    let(:user) { FactoryGirl.create(:user) }
+
+    let(:other_user) { FactoryGirl.create(:user) }
+
+    before(:each) do
+      order = create_an_order(user, :in_progress)
+      (Order::PAGE_SIZE + 1).times do
+        Timecop.travel(order.created_at + 1.day) do
+          order = create_an_order(user, [:new,:done].sample)
+        end
+      end
+      create_an_order(other_user, :done)
+    end
+
   end
 
   RSpec.shared_context 'create_a_valid_order' do
     let(:item) { FactoryGirl.create(:item) }
-
     let(:imported_item) { import_item(item: item, quantity: 10) }
-
     let(:order) { FactoryGirl.create(:order) }
-
     let(:order_item) { FactoryGirl.create(:order_item, item: item, order: order) }
-
     let(:sold_item) do
       order_item.valid?
       order.update_attributes(status: :new)

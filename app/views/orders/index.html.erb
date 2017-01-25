@@ -1,0 +1,25 @@
+<div class="orders-panel">
+  <h2 class="bg-primary heading-title">Your Orders</h2>
+  <% if @orders.size.zero? %>
+    <%= render partial: 'shared/empty', locals: { message: "You haven't have any orders yet." } %>
+  <% else %>
+    <div class="table-responsive">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <th>ID</th>
+          <th>Items</th>
+          <th>Price</th>
+          <th>Status</th>
+          <th>Ordered Date</th>
+        </thead>
+        <tbody>
+          <%= render partial: 'orders/order', collection: @orders, as: :order %>
+        </tbody>
+      </table>
+    </div>
+    <div class="clearfix text-center">
+      <%= paginate @orders, theme: 'twitter-bootstrap-3'%>
+    </div>
+    <hr/>
+  <% end %>
+</div>
