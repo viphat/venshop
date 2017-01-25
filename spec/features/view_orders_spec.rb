@@ -5,7 +5,6 @@ describe 'View Your Orders', type: :feature do
 
   include_context 'login_as_user'
 
-
   context 'empty page' do
     before(:each) do
       visit orders_path
@@ -27,9 +26,9 @@ describe 'View Your Orders', type: :feature do
     end
 
     let(:first_page_orders) { current_user.orders.newest.without_status(:in_progress).first(Order::PAGE_SIZE) }
-    let(:in_progress_order) { current_user.orders.with_status(:in_progress).first }
     let(:newest_order) { current_user.orders.newest.without_status(:in_progress).first }
     let(:oldest_order) { current_user.orders.newest.without_status(:in_progress).last }
+    let(:in_progress_order) { current_user.orders.with_status(:in_progress).first }
     let(:other_user_order) { Order.where(user: other_user).first }
 
     context 'The 1st Page' do
@@ -86,7 +85,6 @@ describe 'View Your Orders', type: :feature do
             expect(page).to have_content order_item.item.item_name
           end
         end
-
 
       end
 

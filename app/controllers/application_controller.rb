@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   private
 
     def current_order
-      return Order.find(session[:order_id]) if session[:order_id].present?
+      if session[:order_id].present?
+        order = Order.find_by_id(session[:order_id])
+        return order unless order.nil?
+        session.delete(:order_id)
+      end
       order = Order.find_by(user: current_user, status: :in_progress)
       return Order.new(user: current_user) if order.nil?
       session[:order_id] = order.id

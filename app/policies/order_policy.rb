@@ -16,4 +16,8 @@ class OrderPolicy < ApplicationPolicy
     (user.user? && user.id == record.user_id) || user.admin?
   end
 
+  def manage?
+    user.admin?
+  end
+
 end

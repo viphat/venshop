@@ -1,7 +1,8 @@
 <tr id="order-<%= order.id %>">
   <td><%= order.id %></td>
-  <td><%= render partial: 'orders/order_item', collection: order.order_items, as: :order_item %></td>
+  <td><%= order.user.name %></td>
   <td>$<%= order.total_price %></td>
   <td><%= t("order.status.#{order.status}") %></td>
   <td><%= order.ordered_at.nil? ? '' : order.ordered_at.strftime('%m/%d/%Y') %></td>
+  <td><%= link_to 'Details', admin_order_path(order), class: 'btn btn-primary' %></td>
 </tr>

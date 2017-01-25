@@ -6,6 +6,7 @@ class Order < ApplicationRecord
   SHIPPING_COST=3.0
   # We will provide free shipping if the order's total price is greater or equal to
   FREE_SHIPPING_PRICE=100.0
+  ALL_STATUS = [:in_progress, :new, :preparing, :shipping, :done, :cancel, :refunded]
 
   has_many :order_items, dependent: :destroy, inverse_of: :order
   has_many :items, through: :order_items
@@ -34,7 +35,7 @@ class Order < ApplicationRecord
   after_save :create_sold_inventory_items, if: 'status.in?(["new", "preparing", "shipping", "done"])'
   after_save :destroy_sold_inventory_items, if: 'status.in?(["in_progress", "cancel", "refunded"])'
 
-  enumerize :status, in: [:in_progress, :new, :preparing, :shipping, :done, :cancel, :refunded],
+  enumerize :status, in: Order::ALL_STATUS,
             default: :in_progress, predicates: true, scope: true
 
   def create_or_update_order_item(order_item_params)

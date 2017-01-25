@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
+  namespace :admin do
+    resources :orders, only: [:index, :show, :update, :destroy]
+  end
+
   as :user do
     get 'users/register' => 'users/registrations#new', as: :new_user_registration
     post 'users/register' => 'users/registrations#create', as: :user_registration

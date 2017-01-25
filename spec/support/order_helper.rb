@@ -1,6 +1,7 @@
 require_relative './item_helper.rb'
 
 module OrderHelper
+
   include ItemHelper
 
   def create_an_order(user, status)
@@ -10,6 +11,23 @@ module OrderHelper
     order_item.save and order.save
     order.update_attributes(status: status)
     order
+  end
+
+  RSpec.shared_context 'preparing_data_for_manage_orders' do
+
+    include_context 'preparing_items' do
+      let(:number_of_creating_items) { 20 }
+      let(:quantity_of_each_item) { 100 }
+    end
+
+    before(:each) do
+      (Order::PAGE_SIZE + 1).times do
+        order = create_an_order(FactoryGirl.create(:user),
+          [:new, :done, :in_progress].sample)
+        Timecop.travel(order.created_at + 1.day)
+      end
+    end
+
   end
 
   RSpec.shared_context 'preparing_data_for_view_orders' do

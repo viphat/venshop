@@ -15,6 +15,9 @@
         <% if user_signed_in? %>
           <li id="shoppingCart"><%= render 'layouts/cart_text' %></li>
           <li><%= link_to "Your Orders", orders_path %></li>
+          <% if policy(Order).manage? %>
+            <li><%= link_to('Manage Orders', admin_orders_path) %></li>
+          <% end %>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">

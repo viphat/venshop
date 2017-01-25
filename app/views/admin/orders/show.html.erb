@@ -1,0 +1,56 @@
+<div class="order-panel">
+  <h2 class="bg-primary heading-title">Order Details - <%= @order.id %></h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <%= form_for(@order, url: { controller: "#{controller.controller_name}", action: 'update' }) do |f| %>
+
+        <tbody>
+          <tr>
+            <td class="strong">Order ID</td>
+            <td><%= @order.id %></td>
+          </tr>
+          <tr>
+            <td class="strong">User</td>
+            <td><%= @order.user.name %></td>
+          </tr>
+          <tr>
+            <td class="strong">Items</td>
+            <td><%= render partial: 'orders/order_item', collection: @order.order_items, as: :order_item %></td>
+          </tr>
+          <tr>
+            <td class="strong">Price</td>
+            <td>
+              <span class="display-block"><strong>Subtotal</strong>: $<%= @order.subtotal_price %></span>
+              <span class="display-block"><strong>Shipping Cost</strong>:
+                $<%= @order.subtotal_price >= Order::FREE_SHIPPING_PRICE ? 0.0 : Order::SHIPPING_COST %>
+              </span>
+              <span class="display-block"><strong>Total</strong>: $<%= @order.total_price %></span>
+            </td>
+          </tr>
+          <tr>
+            <td class="strong">Status</td>
+            <td><%= f.select(:status, options_for_select(Order::ALL_STATUS, @order.status), { }, { class: "form-control" }) %></td>
+          </tr>
+          <tr>
+            <td class="strong">Ordered Date</td>
+            <td><%= @order.ordered_at.nil? ? '' : @order.ordered_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+          <tr>
+            <td class="strong">Delivered Date</td>
+            <td><%= @order.delivered_at.nil? ? '' : @order.delivered_at.strftime('%m/%d/%Y') %></td>
+          </tr>
+        </tbody>
+        <tfooter>
+          <tr>
+            <td colspan="2" class="text-center">
+              <%= f.submit 'Update', class: "btn btn-primary" %>
+              <%= link_to 'Delete', admin_order_path(@order), class: "btn btn-danger mg-l-5", method: :delete, data: { confirm: "Are you sure to delete this order?" } %>
+            </td>
+          </tr>
+        </tfooter>
+
+      <% end %>
+    </table>
+  </div>
+  <hr/>
+</div>
