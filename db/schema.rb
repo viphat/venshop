@@ -40,10 +40,8 @@ ActiveRecord::Schema.define(version: 20170120031631) do
     t.datetime "item_image_updated_at"
     t.integer  "category_id"
     t.string   "asin",                    limit: 10
-    t.text     "description",             limit: 65535,               null: false
-    t.integer  "user_id"
+    t.text     "description",             limit: 65535
     t.index ["category_id"], name: "index_items_on_category_id", using: :btree
-    t.index ["user_id"], name: "index_items_on_user_id", using: :btree
   end
 
   create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

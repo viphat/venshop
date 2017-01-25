@@ -15,6 +15,6 @@ module DeviseHelper
     </div>
     HTML
 
-    html.html_safe
+    raw html
   end
 end

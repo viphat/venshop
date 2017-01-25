@@ -76,6 +76,17 @@ gem 'enumerize'
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
+  # RSpec
+  gem 'rspec-rails'
+  gem 'capybara'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'ffaker'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'timecop'
 end
 
 group :development do

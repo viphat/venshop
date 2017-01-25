@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  
+
   def index
     # Fetch Newest Items
     page = params[:page] || 1
@@ -26,20 +26,20 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     authorize @item, :create?
-    if @item.save
-      flash[:success] = "Item was created successfully."
-      add_breadcrumb_for_item
-    else
+    unless @item.save
       add_breadcrumb_for_creating
       flash[:error] = @item.errors.full_messages
+      return render 'new'
     end
-    render 'show'
+    flash[:success] = 'Item was created successfully.'
+    add_breadcrumb_for_item
+    redirect_to item_path(@item)
   end
 
   def edit
     @item = Item.find(params[:id])
+    authorize @item, :update?
     add_breadcrumb_for_item
-    add_breadcrumb("Edit", edit_item_path(@item))
   end
 
   def update
@@ -50,8 +50,8 @@ class ItemsController < ApplicationController
       flash[:error] = @item.errors.full_messages
       return render 'edit'
     end
-    flash[:success] = "Item was updated successfully."
-    render 'show'
+    flash[:success] = 'Item was updated successfully.'
+    redirect_to item_path(@item)
   end
 
   private
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
     end
 
     def add_breadcrumb_for_creating
-      add_breadcrumb("Create New Item", new_item_path)
+      add_breadcrumb('Create New Item', new_item_path)
     end
 
     def add_breadcrumb_for_item

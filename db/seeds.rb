@@ -8,8 +8,7 @@
 
 User.create!(name: 'Administrator', email: 'admin@zigexn.vn', password: 'admin', role: :admin)
 
-# Assuming that We've already imported Items from Amazon
-# Import Items
+# Assuming that We've already imported from Amazon
 Item.all.each do |item|
   item.inventory_items.create(
     status: :imported,

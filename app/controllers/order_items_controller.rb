@@ -11,14 +11,24 @@ class OrderItemsController < ApplicationController
   def update
     @order_item = OrderItem.find(params[:id])
     @order = current_order
-    @order.reload if @order_item.update_attributes(order_item_params)
+    if @order_item.update_attributes(order_item_params)
+      @order.reload
+      flash[:success] = 'Update successfully.'
+    else
+      flash[:error] = 'Update failed.'
+    end
     redirect_to show_cart_path
   end
 
   def destroy
     @order_item = OrderItem.find(params[:id])
     @order = current_order
-    @order.save if @order_item.destroy
+    if @order_item.destroy
+      @order.save
+      flash[:success] = 'Remove successfully.'
+    else
+      flash[:error] = 'Remove failed.'
+    end
     redirect_to show_cart_path
   end
 

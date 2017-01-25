@@ -1,6 +1,6 @@
 <% item = order_item.item %>
 <div class="row">
-  <div class="row col-md-12 horizontal-item">
+  <div class="row col-md-12 horizontal-item order-item-<%= order_item.id %>">
     <div class="col-md-2 text-center">
       <%= image_tag(item.item_image.url(:small), height: '32', width: '51', alt: item.item_name) %>
     </div>
