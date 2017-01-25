@@ -7,7 +7,7 @@ RSpec.describe OrderItem, type: :model do
   context 'check by shoulda matchers' do
     include_context 'skip_order_item_callbacks'
 
-    subject(:order_item) { FactoryGirl.build(:order_item) }
+    subject(:order_item) { FactoryGirl.build(:order_item, unit_price: 0.0, total_price: 0.0) }
 
     it { is_expected.to belong_to(:order).inverse_of(:order_items) }
     it { is_expected.to belong_to(:item) }
@@ -22,6 +22,7 @@ RSpec.describe OrderItem, type: :model do
     it { is_expected.to validate_numericality_of(:unit_price).is_greater_than_or_equal_to(0.0) }
     it { is_expected.to validate_presence_of(:total_price) }
     it { is_expected.to validate_numericality_of(:total_price).is_greater_than_or_equal_to(0.0) }
+    it { is_expected.to validate_uniqueness_of(:item_id).scoped_to(:order_id) }
 
   end
 
@@ -46,6 +47,7 @@ RSpec.describe OrderItem, type: :model do
       include_context 'create_a_valid_order'
 
       before(:each) do
+        order_item.valid?
         order.update_attributes(status: :new)
       end
 
@@ -61,6 +63,7 @@ RSpec.describe OrderItem, type: :model do
     include_context 'create_a_valid_order'
 
     before(:each) do
+      order_item.valid?
       order.update_attributes(status: :new)
       order_item.reload
     end

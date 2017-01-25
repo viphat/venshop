@@ -20,7 +20,6 @@ class OrderItem < ApplicationRecord
   after_save :force_updating_order_price
   after_save :update_inventory_item
 
-
   private
 
     def update_inventory_item
@@ -40,7 +39,7 @@ class OrderItem < ApplicationRecord
     end
 
     def force_updating_order_price
-      self.order.save!
+      self.order.save
     end
 
 end

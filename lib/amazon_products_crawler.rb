@@ -8,7 +8,6 @@ class AmazonProductsCrawler
   def crawl!
     # Fetch & Import some Categories (Pre-defined)
     create_categories
-
     # Fetch & Import 20 items each Category
     Category.all.find_each do |category|
       # Each time, Amazon API returns only 10 items, so we need to run it twice
@@ -34,6 +33,12 @@ class AmazonProductsCrawler
     end
 
     def create_item_from_hashed_item(hashed_item, category)
+
+      puts '***************************************'
+      puts category.category_name
+      puts hashed_item['ItemAttributes']['Title']
+      puts '***************************************'
+
       item = Item.find_or_initialize_by(category_id: category.id, item_name: hashed_item['ItemAttributes']['Title'])
       item.price = hashed_item['ItemAttributes']['ListPrice']['Amount'].to_i / 100 unless hashed_item['ItemAttributes']['ListPrice'].nil?
       item.asin = hashed_item['ASIN']
@@ -45,6 +50,7 @@ class AmazonProductsCrawler
       max_of_retries = 5
       num_of_retries = 0
       retries = true
+      response = nil
 
       until (!retries || num_of_retries >= max_of_retries)
         retries = false
@@ -57,7 +63,7 @@ class AmazonProductsCrawler
               'SearchIndex' => category.category_name.gsub(' ',''),
               'ResponseGroup' => 'ItemAttributes,Images',
               'ItemPage' => item_page,
-              'BrowseNode' => 1,
+              'Keywords' => 'Japan',
               'MinimumPrice'=> 1 # Minimum Price is $1.00
             }
           )

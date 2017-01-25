@@ -1,9 +1,13 @@
 module OrderHelper
 
+  def import_item(item:, quantity:)
+    FactoryGirl.create(:inventory_item, item: item, quantity: quantity)
+  end
+
   RSpec.shared_context 'create_a_valid_order' do
     let(:item) { FactoryGirl.create(:item) }
 
-    let(:imported_item) { FactoryGirl.create(:inventory_item, item: item)}
+    let(:imported_item) { import_item(item: item, quantity: 10) }
 
     let(:order) { FactoryGirl.create(:order) }
 

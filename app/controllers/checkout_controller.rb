@@ -7,8 +7,8 @@ class CheckoutController < ApplicationController
 
   def create
     @checkout = initialize_checkout
-    unless @checkout.order.checkout_order(checkout_params[:address])
-      flash[:error] = "Checkout unsucceeded!"
+    unless !checkout_params[:address].blank? && @checkout.order.checkout_order(checkout_params[:address])
+      flash[:error] = 'Checkout failed!'
       return redirect_to new_checkout_path
     end
     @checkout.user.update_address(checkout_params[:address])

@@ -6,7 +6,9 @@ module ShoppingCartHelper
     let(:item) { Item.first }
 
     before(:each) do
+      # Create Items
       FactoryGirl.create_list(:item, 5)
+      # Import Items
       items.each do |item|
         item.inventory_items.create(quantity: 5)
       end
@@ -17,6 +19,7 @@ module ShoppingCartHelper
   RSpec.shared_context 'added_items_to_cart' do
     include_context 'preparing_data_for_shopping_cart'
 
+    let(:order) { current_user.orders.last }
     let(:first_item) { Item.first }
     let(:num_of_first_item_purchased) { 1 }
     let(:first_order_item) { current_user.order_items.find_by(item: first_item) }

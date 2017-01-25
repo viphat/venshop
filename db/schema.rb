@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 20170120031631) do
   add_foreign_key "inventory_items", "items"
   add_foreign_key "inventory_items", "order_items"
   add_foreign_key "items", "categories"
-  add_foreign_key "items", "users"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"

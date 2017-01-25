@@ -9,8 +9,9 @@ class OrderItemsController < ApplicationController
   end
 
   def update
-    @order_item = OrderItem.find(params[:id])
     @order = current_order
+    authorize @order, :update?
+    @order_item = @order.order_items.find(params[:id])
     if @order_item.update_attributes(order_item_params)
       @order.reload
       flash[:success] = 'Update successfully.'
@@ -21,8 +22,9 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    @order_item = OrderItem.find(params[:id])
     @order = current_order
+    authorize @order, :update?
+    @order_item = @order.order_items.find(params[:id])
     if @order_item.destroy
       @order.save
       flash[:success] = 'Remove successfully.'

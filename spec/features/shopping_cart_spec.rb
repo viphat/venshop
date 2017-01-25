@@ -11,7 +11,7 @@ describe 'Shopping Cart', type: :feature do
 
     it 'should added to cart successfully' do
       expect { added_item_to_cart(item, 1) }.to change{current_user.order_items.where(item: item).count }.by(1)
-      expect(page).to have_content 'The item was added to cart succesfully'
+      expect(page).to have_content 'The item was added to cart successfully'
     end
 
     it 'should added to cart failed due to out of stock' do
@@ -23,14 +23,14 @@ describe 'Shopping Cart', type: :feature do
       added_item_to_cart(item, 1)
       expect(order_item.quantity).to eq 1
       expect { added_item_to_cart(item, 2) }.not_to change{current_user.order_items.where(item: item).count }
-      expect(page).to have_content 'The item was added to cart succesfully'
+      expect(page).to have_content 'The item was added to cart successfully'
       order_item.reload
       expect(order_item.quantity).to eq 3
     end
 
   end
 
-  describe 'empty cart' do
+  describe 'Empty cart' do
 
     before(:each) do
       visit show_cart_path
@@ -41,12 +41,13 @@ describe 'Shopping Cart', type: :feature do
         expect(page).to have_content 'Shopping Cart'
         expect(page).to have_content 'Your cart is empty'
         expect(page).to have_link 'Back To Home', root_path
+        expect(page).not_to have_link 'Checkout', new_checkout_path
       end
     end
 
   end
 
-  describe 'on showing cart page' do
+  describe 'Showing cart' do
     include_context 'added_items_to_cart'
     let(:new_quantity) { 5 }
     let(:out_of_stock_quantity) { 15 }
@@ -59,9 +60,26 @@ describe 'Shopping Cart', type: :feature do
 
       within('.cart-panel') do
         expect(page).to have_content 'Shopping Cart'
+        expect(page).not_to have_content 'Your cart is empty'
+        expect(page).not_to have_link 'Back To Home', root_path
         expect(page).to have_content first_item.item_name
         expect(page).to have_content second_item.item_name
       end
+
+    end
+
+    it 'should render total row correctly' do
+
+      within('.total-row') do
+        expect(page).to have_content "Subtotal: $#{order.subtotal_price}"
+        expect(page).to have_content "Shipping Cost: $#{Order::SHIPPING_COST}"
+        expect(page).to have_content "Total: $#{order.total_price}"
+        expect(page).to have_link 'Checkout', new_checkout_path
+      end
+
+    end
+
+    it 'should render each order item correctly' do
 
       within(".order-item-#{first_order_item.id}") do
         expect(page).to have_selector("input[type=number][value='#{first_order_item.quantity}']")

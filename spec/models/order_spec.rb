@@ -94,6 +94,35 @@ RSpec.describe Order, type: :model do
     it_behaves_like 'check_absence_of_ordered_at'
     it_behaves_like 'check_absence_of_delivered_at'
     it_behaves_like '#destroy_sold_inventory_items', :in_progress
+
+    context 'check total price and subtotal price' do
+      include_context 'create_a_valid_order'
+
+      let(:other_item) { FactoryGirl.create(:item) }
+      let(:other_order_item) { FactoryGirl.create(:order_item, item: other_item, order: order, quantity: 5)}
+
+      before(:each) do
+        import_item(item: other_item, quantity: 10)
+        order_item.valid?
+      end
+
+      it "should add Shipping Cost when total price is less than #{Order::FREE_SHIPPING_PRICE}" do
+        expect(order.subtotal_price).to eq order_item.total_price
+        expect(order.total_price).to eq order_item.total_price + Order::SHIPPING_COST
+      end
+
+      it 'should update price correctly when we added more item to cart' do
+        other_order_item.valid?
+        expect(order.subtotal_price).to eq order_item.total_price + other_order_item.total_price
+        expect(order.total_price).to eq order_item.total_price + other_order_item.total_price + Order::SHIPPING_COST
+        order_item.update_attributes(quantity: 8)
+        order.reload
+        expect(order.subtotal_price).to eq order_item.total_price + other_order_item.total_price
+        expect(order.total_price).to eq order.subtotal_price
+      end
+
+    end
+
   end
 
   context 'new order' do
@@ -109,6 +138,7 @@ RSpec.describe Order, type: :model do
     it_behaves_like 'check_presence_of_ordered_at'
     it_behaves_like 'check_absence_of_delivered_at'
     it_behaves_like '#has_at_least_one_order_item?', :preparing
+    it_behaves_like '#create_sold_inventory_items', :preparing
   end
 
   context 'shipping order' do
@@ -116,6 +146,7 @@ RSpec.describe Order, type: :model do
     it_behaves_like 'check_presence_of_ordered_at'
     it_behaves_like 'check_absence_of_delivered_at'
     it_behaves_like '#has_at_least_one_order_item?', :shipping
+    it_behaves_like '#create_sold_inventory_items', :shipping
   end
 
   context 'done order' do
@@ -123,6 +154,7 @@ RSpec.describe Order, type: :model do
     it_behaves_like 'check_presence_of_ordered_at'
     it_behaves_like 'check_presence_of_delivered_at'
     it_behaves_like '#has_at_least_one_order_item?', :done
+    it_behaves_like '#create_sold_inventory_items', :done
   end
 
   context 'cancel order' do
