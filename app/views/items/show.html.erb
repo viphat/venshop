@@ -2,6 +2,10 @@
   <h2 class="text-danger"><%= @item.item_name %></h2>
   <div class="col-md-3 col-xs-12">
     <%= image_tag(@item.item_image.url(:large), height: '86', width: '110', alt: @item.item_name) %>
+    <span class='display-block mg-t-5 mg-b-5'>
+      <%= share_on_facebook %>
+    </span>
+    <span class='display-block mg-t-5'><%= share_on_twitter %></span>
   </div>
   <div class="col-md-9 col-xs-12">
     <p>
