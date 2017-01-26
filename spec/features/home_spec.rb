@@ -7,6 +7,8 @@ describe 'home page', type: :feature do
       login_is_visible: true,
       register_is_visible: true,
       cart_is_visible: true,
+      user_order_is_visible: true,
+      admin_order_is_visible: true,
       logout_is_visible: true,
       update_profile_is_visible: true,
       create_new_item_is_visible: true|
@@ -15,6 +17,8 @@ describe 'home page', type: :feature do
       expect(page.has_link?('Login', href: new_user_session_path)).to be login_is_visible
       expect(page.has_link?('Register', href: new_user_registration_path)).to be register_is_visible
       expect(page.has_link?('Cart', href: show_cart_path)).to be cart_is_visible
+      expect(page.has_link?('Your Orders', href: orders_path)).to be user_order_is_visible
+      expect(page.has_link?('Manage Orders', href: admin_orders_path)).to be admin_order_is_visible
       expect(page.has_link?('Logout', href: destroy_user_session_path)).to be logout_is_visible
       expect(page.has_link?('Update Profile', href: current_user.nil? ? '#' : edit_user_profile_path(current_user))).to be update_profile_is_visible
       expect(page.has_link?('Create New Item', href: new_item_path)).to be create_new_item_is_visible
@@ -65,7 +69,12 @@ describe 'home page', type: :feature do
     end
 
     it 'can see login and register button on header' do
-      check_links_on_header(cart_is_visible: false, logout_is_visible: false, update_profile_is_visible: false, create_new_item_is_visible: false)
+      check_links_on_header(cart_is_visible: false,
+                            user_order_is_visible: false,
+                            admin_order_is_visible: false,
+                            logout_is_visible: false,
+                            update_profile_is_visible: false,
+                            create_new_item_is_visible: false)
     end
   end
 
@@ -77,7 +86,11 @@ describe 'home page', type: :feature do
     end
 
     it 'can see logout and update profile button' do
-      check_links_on_header(current_user: current_user, login_is_visible: false, register_is_visible: false, create_new_item_is_visible: false)
+      check_links_on_header(current_user: current_user,
+                            admin_order_is_visible: false,
+                            login_is_visible: false,
+                            register_is_visible: false,
+                            create_new_item_is_visible: false)
     end
 
     it 'can logout successfully' do
@@ -85,7 +98,12 @@ describe 'home page', type: :feature do
         click_link("Logout")
       end
       expect(page).to have_content 'Signed out successfully.'
-      check_links_on_header(cart_is_visible: false, logout_is_visible: false, update_profile_is_visible: false, create_new_item_is_visible: false)
+      check_links_on_header(cart_is_visible: false,
+                            user_order_is_visible: false,
+                            admin_order_is_visible: false,
+                            logout_is_visible: false,
+                            update_profile_is_visible: false,
+                            create_new_item_is_visible: false)
     end
 
   end
@@ -98,7 +116,9 @@ describe 'home page', type: :feature do
     end
 
     it 'can see create new item, update profile, logout links on header' do
-      check_links_on_header(current_user: current_user, login_is_visible: false, register_is_visible: false)
+      check_links_on_header(current_user: current_user,
+                            login_is_visible: false,
+                            register_is_visible: false)
     end
   end
 
