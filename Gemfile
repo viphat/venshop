@@ -69,6 +69,8 @@ gem 'pundit'
 # Enumerize (using string instead of Number as Enum Type on Rails)
 gem 'enumerize'
 
+gem 'rsolr'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
