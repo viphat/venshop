@@ -4,3 +4,5 @@
 <% else %>
   <%= render partial: 'shared/horizontal_item', collection: @items, as: :item %>
 <% end %>
+
+<% set_meta_tags title: 'Home Page', reverse: true %>

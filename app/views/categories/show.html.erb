@@ -1,5 +1,5 @@
 <div class="category-page">
-  <h2 class="bg-primary heading-title"><%= @category.category_name %></h2>
+  <h2 class="bg-primary heading-title"><%= title "Category #{@category.category_name}"%></h2>
   <% if @items.length.zero? %>
     <%= render partial: 'shared/empty', locals: { message: "#{@category.category_name} doesn't have any items." } %>
   <% else %>
@@ -9,3 +9,4 @@
     </div>
   <% end %>
 </div>
+<% set_meta_tags title: "Category #{@category.category_name}", reverse: true %>

@@ -1,5 +1,5 @@
 <div class="item-panel">
-  <h2 class="text-danger"><%= @item.item_name %></h2>
+  <h2 class="text-danger"><%= title @item.item_name %></h2>
   <div class="col-md-3 col-xs-12">
     <%= image_tag(@item.item_image.url(:large), height: '86', width: '110', alt: @item.item_name) %>
   </div>
@@ -29,9 +29,11 @@
   <hr/>
   <div class="col-md-12 col-xs-12 item-description">
     <% if @item.description? %>
-      <p><%= @item.description.gsub(/\n/, '<br>').html_safe %></p>
+      <p><%= raw @item.description.gsub(/\n/, '<br>') %></p>
     <% else %>
       <p>This Item don't have description.</p>
     <% end %>
   </div>
 </div>
+<% set_meta_tags title: "#{@item.item_name}", reverse: true %>
+<% set_meta_tags description: "#{@item.description}", reverse: true %>
