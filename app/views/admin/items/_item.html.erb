@@ -1,0 +1,13 @@
+<tr id="item-<%= item.id %>">
+  <td><%= link_to item.item_name, item_path(item) %></td>
+  <td><%= item.category_name %></td>
+  <td>$<%= item.price %></td>
+  <td><%= item.quantity %></td>
+  <td><%= item.sold_quantity %></td>
+  <td style="min-width: 100px;">
+    <%= form_for([:admin, item], html: { role: 'form' }) do |f| %>
+      <%= f.number_field :import_quantity, class: 'form-control mg-b-5', step: 1, min: 1, required: 'required' %>
+      <%= f.submit 'Import', class: "btn btn-primary" %>
+    <% end %>
+  </td>
+</tr>

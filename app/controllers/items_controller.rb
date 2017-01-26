@@ -1,10 +1,10 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_page_params, only: [:index]
 
   def index
     # Fetch Newest Items
-    page = params[:page] || 1
-    @items = Item.newest.page(page).per(Item::NEWEST_ITEMS_LIMIT)
+    @items = Item.newest.page(@page).per(Item::NEWEST_ITEMS_LIMIT)
     # Authorize with Pundit
     @items.each { |item| authorize item, :index? }
   end

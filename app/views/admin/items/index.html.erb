@@ -1,0 +1,22 @@
+<div class="items-panel">
+  <h2 class="bg-primary heading-title">Manage Items</h2>
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <th>Item name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>In Stock</th>
+        <th>Sold</th>
+        <th>Import</th>
+      </thead>
+      <tbody>
+        <%= render partial: 'admin/items/item', collection: @items, as: :item %>
+      </tbody>
+    </table>
+  </div>
+  <div class="clearfix text-center">
+    <%= paginate @items, theme: 'twitter-bootstrap-3'%>
+  </div>
+  <hr/>
+</div>

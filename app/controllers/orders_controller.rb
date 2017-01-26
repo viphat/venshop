@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_page_params, only: [:index]
   layout 'without_sidebar'
 
   def index
-    page = params[:page] || 1
     @orders = Order.newest.without_status(:in_progress).where(user: current_user)
                    .includes(order_items: :item)
-                   .page(page).per(Order::PAGE_SIZE)
+                   .page(@page).per(Order::PAGE_SIZE)
     @orders.each { |x| authorize x, :show? }
   end
 

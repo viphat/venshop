@@ -21,4 +21,23 @@ RSpec.describe Item, type: :model do
           .rejecting('text/plain', 'text/xml') }
   end
 
+  context '#import_item' do
+    let(:item) { FactoryGirl.create(:item) }
+
+    it 'should raise error when import quantity less than or equal to 0' do
+      expect(item.quantity).to eq 0
+      expect{ item.import_item(0) }.to raise_error('Import quantity must greater than 0.')
+      expect{ item.import_item(-5) }.to raise_error('Import quantity must greater than 0.')
+    end
+
+    it 'should import successfully when import quantity greater than 0' do
+      expect(item.quantity).to eq 0
+      expect{ item.import_item(5) }.to change { InventoryItem.imported.count }.by(1)
+      expect(item.quantity).to eq 5
+      expect{ item.import_item(10) }.to change { InventoryItem.imported.count }.by(1)
+      expect(item.quantity).to eq 15
+    end
+
+  end
+
 end

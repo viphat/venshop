@@ -1,14 +1,14 @@
 class Admin::OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :set_page_params, only: [:index]
+  before_action :get_order, only: [:show, :update, :destroy]
   before_action -> { authorize(@order, :manage?) }, only: [:show, :update, :destroy]
 
   layout 'without_sidebar'
 
   def index
-    page = params[:page] || 1
     authorize Order, :manage?
-    @orders = Order.newest.includes(order_items: :item).page(page).per(Order::PAGE_SIZE)
+    @orders = Order.newest.includes(order_items: :item).page(@page).per(Order::PAGE_SIZE)
   end
 
   def show; end
@@ -26,7 +26,7 @@ class Admin::OrdersController < ApplicationController
   def destroy
     if @order.destroy
       flash[:success] = 'The order was destroyed successfully.'
-      return redirect_to admin_orders_path
+      return redirect_back(fallback_location: admin_orders_path)
     end
     flash[:error] = 'The order was destroyed failed.'
     render 'show'
@@ -38,7 +38,7 @@ class Admin::OrdersController < ApplicationController
       params.require(:order).permit(:status)
     end
 
-    def set_order
+    def get_order
       @order = Order.includes(order_items: :item).find(params[:id])
     end
 

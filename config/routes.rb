@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :orders, only: [:index, :show, :update, :destroy]
+    resources :items, only: [:index, :update]
   end
 
   as :user do

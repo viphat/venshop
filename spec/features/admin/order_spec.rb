@@ -10,7 +10,6 @@ describe 'Admin::Orders#Show,Update,Destroy', type: :feature do
     it 'should raise error when user try to visit' do
       expect { visit admin_order_path(order) }.to raise_error(Pundit::NotAuthorizedError)
     end
-
   end
 
   describe 'As an admin' do

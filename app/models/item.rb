@@ -4,6 +4,9 @@ class Item < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
 
   NEWEST_ITEMS_LIMIT=4
+  ITEMS_ON_ADMIN_PAGE=10
+
+  attr_accessor :import_quantity
 
   has_many :order_items, dependent: :destroy
   has_many :inventory_items, dependent: :destroy
@@ -22,8 +25,17 @@ class Item < ApplicationRecord
     self.item_image = open(url)
   end
 
+  def sold_quantity
+    inventory_items.sold.sum(:quantity)
+  end
+
   def quantity
-    inventory_items.imported.sum(:quantity) - inventory_items.sold.sum(:quantity)
+    inventory_items.imported.sum(:quantity) - sold_quantity
+  end
+
+  def import_item(quantity)
+    raise ArgumentError.new('Import quantity must greater than 0.') and return if quantity <= 0
+    self.inventory_items.imported.create(quantity: quantity)
   end
 
 end

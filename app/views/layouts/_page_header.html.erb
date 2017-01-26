@@ -18,6 +18,9 @@
           <% if policy(Order).manage? %>
             <li><%= link_to('Manage Orders', admin_orders_path) %></li>
           <% end %>
+          <% if policy(Item).update? %>
+            <li><%= link_to('Manage Items', admin_items_path) %></li>
+          <% end %>
         <% end %>
       </ul>
       <ul class="nav navbar-nav navbar-right">

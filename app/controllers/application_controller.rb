@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+    def set_page_params
+      @page = params[:page] || 1
+    end
+
     def current_order
       if session[:order_id].present?
         order = Order.find_by_id(session[:order_id])

@@ -18,7 +18,7 @@ describe 'Admin::Orders#Index', type: :feature do
     let(:first_page_orders) { Order.newest.first(Order::PAGE_SIZE) }
     let(:oldest_order) { Order.newest.last }
 
-    it 'should render orders management page correctly' do
+    it 'should render orders management 1st page correctly' do
       visit admin_orders_path
 
       within('.orders-panel') do
@@ -35,6 +35,10 @@ describe 'Admin::Orders#Index', type: :feature do
       end
 
       expect(page).not_to have_css("tr#order-#{oldest_order.id}")
+
+    end
+
+    it 'should render orders management 2nd page correctly' do
 
       visit admin_orders_path(page: 2)
 
