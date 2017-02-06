@@ -1,8 +1,8 @@
-<% flash.each do |key, value| %>
-  <div class="alert alert-<%= key.in?(['notice','success']) ? 'success' : 'danger' %>">
+<% unless f.empty? %>
+  <div class="alert alert-<%= f.first == 'notice' ? 'success' : 'danger' %>">
     <a href="#" data-dismiss="alert" class="close">×</a>
     <ul>
-      <li><%= value %></li>
+      <li><%= f.second %></li>
     </ul>
   </div>
 <% end %>

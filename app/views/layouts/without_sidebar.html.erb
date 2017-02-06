@@ -5,7 +5,7 @@
   <body>
     <%= render 'layouts/page_header' %>
     <div class="container">
-      <%= render 'layouts/messages' %>
+      <%= render partial: 'layouts/messages', collection: flash, as: :f %>
       <div class="row">
         <div class="col-md-offset-3 col-md-6 col-xs-12"><%= yield %></div>
       </div>

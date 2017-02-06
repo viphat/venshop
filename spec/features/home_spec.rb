@@ -20,26 +20,41 @@ describe 'home page', type: :feature do
 
   end
 
-  it "should have at most #{Item::NEWEST_ITEMS_LIMIT} new items" do
-    FactoryGirl.create_list(:item, Item::NEWEST_ITEMS_LIMIT + 1)
-    newest_items = Item.newest.select(:item_name).pluck(:item_name)
-    expect(newest_items).not_to be_empty
-    visit '/'
-    Item::NEWEST_ITEMS_LIMIT.times do
-      expect(page).to have_content(newest_items.shift)
+  context 'Items index' do
+
+    let(:newest_items) { Item.newest.select(:item_name).pluck(:item_name) }
+
+    before(:each) do
+      FactoryGirl.create_list(:item, Item::NEWEST_ITEMS_LIMIT + 1)
+      visit '/'
     end
-    expect(page).not_to have_content(newest_items.last)
+
+    it "should have at most #{Item::NEWEST_ITEMS_LIMIT} new items" do
+      expect(newest_items).not_to be_empty
+      Item::NEWEST_ITEMS_LIMIT.times do
+        expect(page).to have_content(newest_items.shift)
+      end
+      expect(page).not_to have_content(newest_items.last)
+    end
+
   end
 
-  it 'should have all categories\'s link on sidebar' do
+  context 'category sidebar' do
     NUM_OF_CATEGORIES = 5
-    FactoryGirl.create_list(:category, NUM_OF_CATEGORIES)
-    visit '/'
-    within('#sidebar') do
-      Category.first(NUM_OF_CATEGORIES) do |category|
-        expect(page).not_to have_category_path(category)
+
+    before(:each) do
+      FactoryGirl.create_list(:category, NUM_OF_CATEGORIES)
+      visit '/'
+    end
+
+    it 'should have all categories\'s link on sidebar' do
+      within('#sidebar') do
+        Category.first(NUM_OF_CATEGORIES) do |category|
+          expect(page).not_to have_category_path(category)
+        end
       end
     end
+
   end
 
   context 'As a guest' do

@@ -4,6 +4,11 @@ describe 'show item page', type: :feature do
   include FeaturesHelper
 
   let(:foo_item) { FactoryGirl.create(:item) }
+  let(:bar_item) { FactoryGirl.create(:item) }
+
+  before(:each) do
+    visit item_path(foo_item)
+  end
 
   it 'should render properly breadcrumbs' do
     visit item_path(foo_item)
@@ -19,8 +24,7 @@ describe 'show item page', type: :feature do
       visit item_path(foo_item)
     end
 
-    it 'can see an item with its attributes' do
-      bar_item = FactoryGirl.create(:item)
+    it 'can view an item with its attributes' do
       within('.item-page') do
         expect(page).to have_content(foo_item.item_name)
         expect(page.has_xpath?("//img[@alt='#{foo_item.item_name}' and @src='#{foo_item.item_image.url(:large)}']")).to be_truthy
@@ -49,5 +53,4 @@ describe 'show item page', type: :feature do
       expect(page).not_to have_link('Edit', href: edit_item_path(foo_item))
     end
   end
-
 end
