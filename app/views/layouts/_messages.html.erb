@@ -1,8 +1,12 @@
 <% unless f.empty? %>
-  <div class="alert alert-<%= f.first.in?(['notice','success']) ? 'success' : 'danger' %>">
-    <a href="#" data-dismiss="alert" class="close">×</a>
-    <ul>
-      <li><%= f.second %></li>
-    </ul>
-  </div>
+  <% if f.first == 'event' %>
+    <%= raw f.second %>
+  <% else %>
+    <div class="alert alert-<%= f.first.in?(['notice','success']) ? 'success' : 'danger' %>">
+      <a href="#" data-dismiss="alert" class="close">×</a>
+      <ul>
+        <li><%= f.second %></li>
+      </ul>
+    </div>
+  <% end %>
 <% end %>

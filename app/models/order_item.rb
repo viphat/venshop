@@ -5,7 +5,8 @@ class OrderItem < ApplicationRecord
   has_one :inventory_item, dependent: :destroy
 
   delegate :user, to: :order
-
+  delegate :item_name, to: :item
+  
   validates :order, presence: true
   validates :item, presence: true
   validates :quantity, presence: true, numericality: { greater_than: 0, only_integer: true }

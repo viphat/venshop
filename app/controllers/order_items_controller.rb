@@ -1,4 +1,5 @@
 class OrderItemsController < ApplicationController
+  include CommonHelper
   before_action :authenticate_user!
 
   def create
@@ -28,6 +29,7 @@ class OrderItemsController < ApplicationController
     if @order_item.destroy
       @order.save
       flash[:success] = 'Remove successfully.'
+      flash[:event] = google_analytics_event_tracking('Cart', 'Item Removed')
     else
       flash[:error] = 'Remove failed.'
     end

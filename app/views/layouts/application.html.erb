@@ -4,7 +4,7 @@
     <%= render 'layouts/page_header' %>
 
     <div class="container">
-      <div class="row mg-bt-5">
+      <div class="row mg-b-5">
         <%= render 'layouts/search_form' %>
       </div>
       <%= render partial: 'layouts/messages', collection: flash, as: :f %>
@@ -27,4 +27,4 @@
     }(document, 'script', 'facebook-jssdk'));</script>
   </body>
 </html>
-<% set_meta_tags title: "Category #{@category.category_name}", reverse: true %>
+<% @category.nil? ? '' : set_meta_tags(title: "Category #{@category.category_name}", reverse: true) %>
