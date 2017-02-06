@@ -2,7 +2,11 @@
   <%= render 'layouts/head_tag' %>
   <body>
     <%= render 'layouts/page_header' %>
+
     <div class="container">
+      <div class="row mg-bt-5">
+        <%= render 'layouts/search_form' %>
+      </div>
       <%= render partial: 'layouts/messages', collection: flash, as: :f %>
       <div class="row" id="breadcrumbs">
         <%= render_breadcrumbs %>

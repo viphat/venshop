@@ -73,8 +73,11 @@ gem 'pundit'
 # Enumerize (using string instead of Number as Enum Type on Rails)
 gem 'enumerize'
 
-# SEO
+# SEO - Handle Site Meta Tags
 gem 'meta-tags'
+
+# Solr
+gem 'rsolr'
 
 group :development, :test do
   gem 'pry-rails'

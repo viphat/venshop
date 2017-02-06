@@ -31,3 +31,7 @@ README.md
 /public/system/*
 
 /coverage/*
+<<<<<<< HEAD
+=======
+/solr/*
+>>>>>>> feature-Solr

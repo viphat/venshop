@@ -31,5 +31,6 @@ Rails.application.routes.draw do
 
   get '/cart', to: 'cart#show', as: :show_cart
   put '/cart', to: 'cart#update', as: :update_cart
+  get '/search', to: 'search_items#index', as: :search
 
 end
