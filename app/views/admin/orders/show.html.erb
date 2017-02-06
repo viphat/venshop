@@ -2,7 +2,7 @@
   <h2 class="bg-primary heading-title">Order Details - <%= @order.id %></h2>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
-      <%= form_for(:admin, @order) do |f| %>
+      <%= form_for([:admin, @order]) do |f| %>
 
         <tbody>
           <tr>

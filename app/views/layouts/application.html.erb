@@ -27,4 +27,7 @@
     }(document, 'script', 'facebook-jssdk'));</script>
   </body>
 </html>
-<% set_meta_tags title: "Category #{@category.category_name}", reverse: true %>
+<% @category.nil? ? nil : set_meta_tags(
+    title: "Category #{@category.category_name}",
+    reverse: true
+)%>

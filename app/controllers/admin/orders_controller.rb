@@ -8,7 +8,7 @@ class Admin::OrdersController < ApplicationController
 
   def index
     authorize Order, :manage?
-    @orders = Order.newest.includes(order_items: :item).page(@page).per(Order::PAGE_SIZE)
+    @orders = Order.newest.includes(:user).page(@page).per(Order::PAGE_SIZE)
   end
 
   def show; end

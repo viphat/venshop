@@ -7,11 +7,12 @@ class Admin::ItemsController < ApplicationController
   layout 'without_sidebar'
 
   def index
-    @items = Item.newest.page(@page).per(Item::ITEMS_ON_ADMIN_PAGE)
+    @items = Item.newest.includes(:category).page(@page).per(Item::ITEMS_ON_ADMIN_PAGE)
   end
 
   def update
-    if !item_params[:import_quantity].blank? && item_params[:import_quantity].to_i > 0
+    if !item_params[:import_quantity].blank? &&
+        item_params[:import_quantity].to_i > 0
       if @item.import_item(item_params[:import_quantity].to_i)
         flash[:success] = "Import Item #{@item.item_name} successfully."
         return redirect_back(fallback_location: admin_items_path)

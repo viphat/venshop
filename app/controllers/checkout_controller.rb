@@ -1,14 +1,15 @@
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
   layout 'without_sidebar'
-  
+
   def new
     @checkout = initialize_checkout
   end
 
   def create
     @checkout = initialize_checkout
-    unless !checkout_params[:address].blank? && @checkout.order.checkout_order(checkout_params[:address])
+    unless !checkout_params[:address].blank? &&
+        @checkout.order.checkout_order(checkout_params[:address])
       flash[:error] = 'Checkout failed!'
       return redirect_to new_checkout_path
     end
