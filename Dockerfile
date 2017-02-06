@@ -5,7 +5,7 @@ FROM ruby:2.4.0-slim
 RUN apt-get update -qq && apt-get install -y build-essential apt-utils nodejs npm nodejs-legacy mysql-client libmysqlclient-dev vim
 
 # Define where our application will live inside the image
-ENV RAILS_ROOT /web/training/venshop
+ENV RAILS_ROOT /var/web/training/venshop
 
 # Create application home. App server will need the pids dir so just create everything in one shot
 RUN mkdir -p $RAILS_ROOT/tmp/pids
