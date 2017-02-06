@@ -8,7 +8,7 @@ class Item < ApplicationRecord
   belongs_to :category
   delegate :category_name, to: :category
 
-  validates :item_name, presence: true, length: { minimum: 10, maximum: 255 }
+  validates :item_name, presence: true, length: { maximum: 255 }
   validates :category, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0.0 }
 
