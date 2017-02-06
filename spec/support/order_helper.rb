@@ -1,7 +1,6 @@
 require_relative './item_helper.rb'
 
 module OrderHelper
-
   include ItemHelper
 
   def create_an_order(user, status)
@@ -87,5 +86,4 @@ module OrderHelper
       Order.any_instance.unstub(:check_subtotal_with_total?)
     end
   end
-
 end

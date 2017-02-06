@@ -1,5 +1,4 @@
 class OrderPolicy < ApplicationPolicy
-
   def show?
     (user.user? && user.id == record.user_id) || user.admin?
   end
@@ -19,5 +18,4 @@ class OrderPolicy < ApplicationPolicy
   def manage?
     user.admin?
   end
-
 end

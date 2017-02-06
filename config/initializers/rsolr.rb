@@ -1,3 +1,5 @@
 require 'rsolr'
 
-$solr = RSolr.connect(:url => 'http://localhost:8983/solr/venshop',:read_timeout => 120, :open_timeout => 120)
+$solr = RSolr.connect(url: ENV['RSOLR_SERVER_ADDRESS'],
+                      read_timeout: 120,
+                      open_timeout: 120)

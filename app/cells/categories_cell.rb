@@ -5,5 +5,4 @@ class CategoriesCell < Cell::ViewModel
     @categories = Category.order(:category_name).all
     render
   end
-
 end

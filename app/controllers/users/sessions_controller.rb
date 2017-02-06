@@ -1,23 +1,25 @@
-class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
-  layout 'without_sidebar'
+module Users
+  class SessionsController < Devise::SessionsController
+    # before_action :configure_sign_in_params, only: [:create]
+    layout 'without_sidebar'
 
-  # def new
-  #   super
-  # end
+    # def new
+    #   super
+    # end
 
-  # def create
-  #   super
-  # end
+    # def create
+    #   super
+    # end
 
-  # def destroy
-  #   super
-  # end
+    # def destroy
+    #   super
+    # end
 
-  # protected
+    # protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+    # If you have extra params to permit, append them to the sanitizer.
+    # def configure_sign_in_params
+    #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+    # end
+  end
 end

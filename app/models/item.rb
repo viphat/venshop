@@ -3,9 +3,9 @@ require 'open-uri'
 class Item < ApplicationRecord
   scope :newest, -> { order(created_at: :desc) }
 
-  NEWEST_ITEMS_LIMIT=4
-  ITEMS_ON_ADMIN_PAGE=10
-  SEARCH_ITEMS_LIMIT=10
+  NEWEST_ITEMS_LIMIT = 4
+  ITEMS_ON_ADMIN_PAGE = 10
+  SEARCH_ITEMS_LIMIT = 10
 
   attr_accessor :import_quantity
 
@@ -23,7 +23,7 @@ class Item < ApplicationRecord
   after_destroy :solr_destroy_item
 
   has_attached_file :item_image, styles: { small: '51x32>', medium: '71x38>', large: '110x86>' }
-  validates_attachment_content_type :item_image, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :item_image, content_type: %r{\Aimage\/.*\z}
 
   def set_item_image_from_url(url)
     # Use to load image from Amazon
@@ -39,32 +39,31 @@ class Item < ApplicationRecord
   end
 
   def import_item(quantity)
-    raise ArgumentError.new('Import quantity must greater than 0.') and return if quantity <= 0
-    self.inventory_items.imported.create(quantity: quantity)
+    return raise ArgumentError, 'Import quantity must greater than 0.' if quantity <= 0
+    inventory_items.imported.create(quantity: quantity)
   end
 
   private
 
-    def solr_update_item
-      add_attributes = { allowDups: false, commitWithin: 10 }
-      xml = $solr.xml.add(searchable, add_attributes)
-      $solr.update(data: xml)
-    end
+  def solr_update_item
+    add_attributes = { allowDups: false, commitWithin: 10 }
+    xml = $solr.xml.add(searchable, add_attributes)
+    $solr.update(data: xml)
+  end
 
-    def solr_push_item
-      $solr.add(searchable)
-    end
+  def solr_push_item
+    $solr.add(searchable)
+  end
 
-    def solr_destroy_item
-      $solr.delete_by_id(self.id)
-    end
+  def solr_destroy_item
+    $solr.delete_by_id(id)
+  end
 
-    def searchable
-      {
-        id: id,
-        item_name: item_name,
-        price: price
-      }
-    end
-
+  def searchable
+    {
+      id: id,
+      item_name: item_name,
+      price: price
+    }
+  end
 end

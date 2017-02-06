@@ -3,5 +3,5 @@
   <td><%= render partial: 'orders/order_item', collection: order.order_items, as: :order_item %></td>
   <td>$<%= order.total_price %></td>
   <td><%= t("order.status.#{order.status}") %></td>
-  <td><%= order.ordered_at.nil? ? '' : order.ordered_at.strftime('%m/%d/%Y') %></td>
+  <td><%= format_date(order.ordered_at) %></td>
 </tr>

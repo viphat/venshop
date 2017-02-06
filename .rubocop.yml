@@ -1,0 +1,28 @@
+Metrics/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/*.*'
+    - 'config/*/*.*'
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - 'config/*.*'
+    - 'config/*/*.*'
+
+Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'db/schema.rb'
+    - 'db/*/*.*'
+    - 'Gemfile'
+    - 'Gemfile.lock'
+    - 'spec/*/*.*' # Temporary
+    - 'spec/*/*/*.*' # Temporary
+    - 'spec/*.*' # Temporary

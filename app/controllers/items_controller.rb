@@ -56,17 +56,16 @@ class ItemsController < ApplicationController
 
   private
 
-    def item_params
-      params.require(:item).permit(:item_name, :category_id, :price, :description, :item_image)
-    end
+  def item_params
+    params.require(:item).permit(:item_name, :category_id, :price, :description, :item_image)
+  end
 
-    def add_breadcrumb_for_creating
-      add_breadcrumb('Create New Item', new_item_path)
-    end
+  def add_breadcrumb_for_creating
+    add_breadcrumb('Create New Item', new_item_path)
+  end
 
-    def add_breadcrumb_for_item
-      add_breadcrumb(@item.category_name, category_path(@item.category))
-      add_breadcrumb("Item ID #{@item.id}", item_path(@item))
-    end
-
+  def add_breadcrumb_for_item
+    add_breadcrumb(@item.category_name, category_path(@item.category))
+    add_breadcrumb("Item ID #{@item.id}", item_path(@item))
+  end
 end

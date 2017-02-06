@@ -23,7 +23,5 @@ module SocialButtonHelper
       <i class="fa fa-twitter"></i>
     </a>
     HTML
-
   end
-
 end

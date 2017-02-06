@@ -21,5 +21,4 @@ class OrdersController < ApplicationController
     flash[:error] = 'Your order can\'t be canceled'
     redirect_to new_checkout_path
   end
-
 end

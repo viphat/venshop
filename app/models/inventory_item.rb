@@ -20,16 +20,15 @@ class InventoryItem < ApplicationRecord
 
   private
 
-    def check_with_order_item_quantity?
-      self.errors.add(:quantity, 'must equal order item\'s quantity') unless quantity == order_item.quantity
-    end
+  def check_with_order_item_quantity?
+    errors.add(:quantity, 'must equal order item\'s quantity') unless quantity == order_item.quantity
+  end
 
-    def set_quantity
-      self.quantity = order_item.quantity
-    end
+  def set_quantity
+    self.quantity = order_item.quantity
+  end
 
-    def set_item_id
-      self.item_id = order_item.item_id
-    end
-
+  def set_item_id
+    self.item_id = order_item.item_id
+  end
 end

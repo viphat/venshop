@@ -11,7 +11,7 @@
           </tr>
           <tr>
             <td class="strong">User</td>
-            <td><%= @order.user.name %></td>
+            <td><%= @order.user_name %></td>
           </tr>
           <tr>
             <td class="strong">Items</td>
@@ -33,11 +33,11 @@
           </tr>
           <tr>
             <td class="strong">Ordered Date</td>
-            <td><%= @order.ordered_at.nil? ? '' : @order.ordered_at.strftime('%m/%d/%Y') %></td>
+            <td><%= format_date(@order.ordered_at) %></td>
           </tr>
           <tr>
             <td class="strong">Delivered Date</td>
-            <td><%= @order.delivered_at.nil? ? '' : @order.delivered_at.strftime('%m/%d/%Y') %></td>
+            <td><%= format_date(@order.delivered_at) %></td>
           </tr>
         </tbody>
         <tfooter>

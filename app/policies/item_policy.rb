@@ -1,5 +1,4 @@
 class ItemPolicy < ApplicationPolicy
-
   def index?
     true
   end
@@ -15,5 +14,4 @@ class ItemPolicy < ApplicationPolicy
   def destroy?
     !user.nil? && user.admin?
   end
-
 end

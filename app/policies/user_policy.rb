@@ -1,5 +1,4 @@
 class UserPolicy < ApplicationPolicy
-
   def index?
     false
   end
@@ -15,5 +14,4 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     false
   end
-
 end

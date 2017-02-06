@@ -9,7 +9,7 @@ class CheckoutController < ApplicationController
   def create
     @checkout = initialize_checkout
     unless !checkout_params[:address].blank? &&
-        @checkout.order.checkout_order(checkout_params[:address])
+           @checkout.order.checkout_order(checkout_params[:address])
       flash[:error] = 'Checkout failed!'
       return redirect_to new_checkout_path
     end
@@ -19,16 +19,13 @@ class CheckoutController < ApplicationController
 
   private
 
-    def checkout_params
-      params.require(:checkout).permit(:address)
-    end
+  def checkout_params
+    params.require(:checkout).permit(:address)
+  end
 
-    def initialize_checkout
-      Checkout.new(
-        order: current_order,
-        user: current_user,
-        address: current_user.address
-      )
-    end
-
+  def initialize_checkout
+    Checkout.new(order: current_order,
+                 user: current_user,
+                 address: current_user.address)
+  end
 end

@@ -7,5 +7,4 @@ class CategoriesController < ApplicationController
     @items = @category.items.newest.page(@page).per(Category::ITEMS_LIMIT)
     add_breadcrumb @category.category_name, category_path(@category)
   end
-
 end

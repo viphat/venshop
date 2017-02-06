@@ -16,7 +16,8 @@
         <label class="mg-r-5">Price:</label><%= @item.price %>
       </span>
       <span class="display-block">
-        <label class="mg-r-5">Date Added:</label><%= @item.created_at.strftime('%m/%d/%Y') %>
+        <label class="mg-r-5">Date Added:</label>
+        <%= format_date(@item.created_at) %>
       </span>
       <span class="display-block">
         <% if policy(@item).update? %>
@@ -25,7 +26,7 @@
         <% end %>
       </span>
       <% if user_signed_in? %>
-        <%= render 'items/order_form' %>
+        <%= render partial: 'items/order_form', locals: { order_item: @order_item } %>
       <% end %>
     </p>
   </div>

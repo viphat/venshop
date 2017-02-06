@@ -1,5 +1,5 @@
 class OrderMailer < ApplicationMailer
-  default from: "noreply@zigexn.vn"
+  default from: 'noreply@zigexn.vn'
 
   def new_order(order)
     @order = order

@@ -1,10 +1,10 @@
 class OrderItem < ApplicationRecord
-
   belongs_to :order, inverse_of: :order_items
   belongs_to :item
   has_one :inventory_item, dependent: :destroy
 
   delegate :user, to: :order
+  delegate :item_name, to: :item
 
   validates :order, presence: true
   validates :item, presence: true
@@ -22,24 +22,23 @@ class OrderItem < ApplicationRecord
 
   private
 
-    def update_inventory_item
-      inventory_item = InventoryItem.find_by(order_item: id)
-      return if inventory_item.nil?
-      inventory_item.save
-    end
+  def update_inventory_item
+    inventory_item = InventoryItem.find_by(order_item: id)
+    return if inventory_item.nil?
+    inventory_item.save
+  end
 
-    def set_price
-      self.unit_price = item.price if unit_price.nil?
-      self.total_price = unit_price * quantity
-    end
+  def set_price
+    self.unit_price = item.price if unit_price.nil?
+    self.total_price = unit_price * quantity
+  end
 
-    def check_with_inventory?
-      return if item.nil?
-      self.errors.add(:quantity, 'must less than or equal to inventory quantity') if !quantity.nil? && quantity > item.quantity
-    end
+  def check_with_inventory?
+    return if item.nil?
+    errors.add(:quantity, 'must less than or equal to inventory quantity') if !quantity.nil? && quantity > item.quantity
+  end
 
-    def force_updating_order_price
-      self.order.save
-    end
-
+  def force_updating_order_price
+    order.save
+  end
 end
