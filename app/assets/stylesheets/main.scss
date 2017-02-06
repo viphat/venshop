@@ -1,3 +1,7 @@
+footer {
+  margin-top: 25px;
+}
+
 h2.heading-title {
   border: solid 1px;
   padding: 10px;
@@ -7,7 +11,15 @@ h2.heading-title {
   display: block;
 }
 
-.login-panel, .register-panel {
+.mg-l-5 {
+  margin-left: 5px;
+}
+
+.mg-r-5 {
+  margin-right: 5px;
+}
+
+.login-panel, .register-panel, .profile-panel, .item-panel {
   .panel-link {
     float: right;
     position: relative;
@@ -16,5 +28,12 @@ h2.heading-title {
   }
   .input-group {
     margin-bottom: 25px;
+  }
+  .form-group {
+    .content-label {
+      padding-top: 7px;
+      margin-bottom: 0px;
+    }
+
   }
 }

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe User, :type => :model do
+RSpec.describe User, type: :model do
 
   context 'check by shoulda matchers' do
     subject(:user) { FactoryGirl.build(:user) }

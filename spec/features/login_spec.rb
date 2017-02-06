@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'login page', :type => :feature do
+describe 'login page', type: :feature do
 
   CORRECT_PASSWORD = '123456'
   WRONG_PASSWORD = 'abcxyz'

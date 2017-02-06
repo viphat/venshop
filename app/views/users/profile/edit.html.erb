@@ -1,0 +1,57 @@
+<!--  Avatar - Email - Name - Password - Password Confirmation -->
+<div class="profile-panel panel panel-warning">
+  <div class="panel-heading">
+    <div class="panel-title">Update Profile</div>
+  </div>
+  <div class="panel-body">
+    <%= form_for(@user, url: update_user_profile_path(@user), method: :put,
+      html: { class:'form-horizontal', role: 'form' }) do |f| %>
+
+      <div class="form-group text-center">
+        <div class="col-md-12">
+          <%= image_tag(current_user.avatar.url(:medium), height: '128', width: '128', alt: current_user.name) %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label "Email", class: 'col-md-3 control-label' %>
+        <label class="col-md-9 content-label"><%= @user.email %></label>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :name, class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Name', required: "required" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :password, 'New Password', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <%= f.password_field :password, autocomplete: 'off', class: 'form-control', placeholder: 'New password' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control', placeholder: 'Password confirmation' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label "Avatar", class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <%= f.file_field(:avatar, class: 'form-control', accept: 'image/png,image/gif,image/jpeg') %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+          <%= f.submit 'Update', class: 'btn btn-info' %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>
