@@ -21,7 +21,7 @@ describe 'show item page', type: :feature do
     end
 
     it 'can see an item with its attributes' do
-      within('.item-panel') do
+      within('.item-page') do
         expect(page).to have_content(foo_item.item_name)
         expect(page.has_xpath?("//img[@alt='#{foo_item.item_name}' and @src='#{foo_item.item_image.url(:large)}']")).to be_truthy
         expect(page).to have_content(foo_item.id)
@@ -70,5 +70,4 @@ describe 'show item page', type: :feature do
     end
 
   end
-
 end
