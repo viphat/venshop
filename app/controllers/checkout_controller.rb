@@ -1,9 +1,11 @@
 class CheckoutController < ApplicationController
+  include CommonHelper
   before_action :authenticate_user!
   layout 'without_sidebar'
 
   def new
     @checkout = initialize_checkout
+    flash.now[:event] = google_analytics_event_tracking('Checkout', 'Clicked')
   end
 
   def create

@@ -1,6 +1,7 @@
 <% if @order.errors.any? || @order_item.errors.any? %>
   $("#orderMessagesHolder").html("<%= escape_javascript(render 'cart/added_failed') %>")
 <% else %>
+  <%= raw google_analytics_event_tracking_script('Cart', 'Item Added', @order_item.item_name, @order_item.item_id) %>
   $("#orderMessagesHolder").html("<%= escape_javascript(render 'cart/added_successfully') %>")
   $("#shoppingCart").html("<%= escape_javascript(render 'layouts/cart_text') %>")
 <% end %>
